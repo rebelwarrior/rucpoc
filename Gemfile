@@ -1,0 +1,73 @@
+source 'https://rubygems.org'
+#ruby=jruby-1.7.4
+#Magic JRUBY comment
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '4.0.0'
+
+platforms :jruby do
+  # Use jdbcpostgresql as the database for Active Record
+  gem 'activerecord-jdbcpostgresql-adapter'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'therubyrhino'
+end
+
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 4.0.0'
+
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+
+# Use CoffeeScript for .js.coffee assets and views
+gem 'coffee-rails', '~> 4.0.0'
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+
+# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+gem 'turbolinks'
+
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 1.2'
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
+
+# Use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '~> 3.0.0'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Use Capistrano for deployment
+# gem 'capistrano', group: :development
+
+group :development, :test do
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'cucumber', require: false
+  gem 'cucumber-rails', '1.3.0', :require => false
+  # Remember to move /script/cucumber to /bin/cucumber
+  gem 'database_cleaner', github: 'bmabey/database_cleaner'
+  gem 'rspec-rails'
+  gem 'haml-rails'
+  # gem 'jasminerice'
+  # gem 'guard-jasmine'
+end
+
+group :development do
+  gem 'pry'
+  gem 'localeapp', require: false
+end
+
+group :deploy do
+  platforms :jruby do
+    gem 'warbler' 
+    gem 'net-ssh', :require => "net/ssh"
+    gem 'net-scp', :require => "net/scp" 
+    gem 'torquebox-remote-deployer'
+  end
+end
