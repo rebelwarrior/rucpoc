@@ -5,6 +5,25 @@
 # files.
 
 require 'cucumber/rails'
+require 'capybara-webkit'
+
+
+Capybara.javascript_driver = :webkit
+
+# Class below removes persistent warning w/ capybara-webkit & qt that can be ignored.
+class WarningSuppressor
+  class << self
+    def write(message)
+      puts(message) unless message =~ /QFont::setPixelSize: Pixel size <= 0/
+      0
+    end
+  end
+end
+
+
+Capybara.register_driver :webkit do |app|
+  Capybara::Webkit::Driver.new(app, stderr: WarningSuppressor)
+end
 
 # Capybara defaults to XPath selectors rather than Webrat's default of CSS3. In
 # order to ease the transition to Capybara we set the default here. If you'd

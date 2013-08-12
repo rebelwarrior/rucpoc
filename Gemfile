@@ -54,7 +54,7 @@ group :development, :test do
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'rspec-rails'
   gem 'haml-rails'
-  # gem 'jasminerice'
+  # gem 'jasminerice' # For CoffeeScript Testing.
   # gem 'guard-jasmine'
 end
 
