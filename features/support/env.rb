@@ -7,9 +7,8 @@
 require 'cucumber/rails'
 require 'capybara-webkit'
 
-
+## Capybara Webkit Integration
 Capybara.javascript_driver = :webkit
-
 # Class below removes persistent warning w/ capybara-webkit & qt that can be ignored.
 class WarningSuppressor
   class << self
@@ -19,8 +18,6 @@ class WarningSuppressor
     end
   end
 end
-
-
 Capybara.register_driver :webkit do |app|
   Capybara::Webkit::Driver.new(app, stderr: WarningSuppressor)
 end
