@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130813154928) do
+ActiveRecord::Schema.define(version: 20130813190139) do
+
+  create_table "debtors", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "tel"
+    t.string   "address"
+    t.string   "location"
+    t.string   "contact_person"
+    t.string   "employer_id_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email"
