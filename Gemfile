@@ -7,8 +7,13 @@ gem 'rails', '4.0.0'
 
 platforms :jruby do
   # Use jdbcpostgresql as the database for Active Record
-  gem 'activerecord-jdbcpostgresql-adapter'
-
+  # group :production do
+    gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.beta2'
+  # end
+  # group :development do
+  #   gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0.beta2'
+  # end
+  gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyrhino'
 end
