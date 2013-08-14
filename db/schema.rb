@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130813190139) do
+ActiveRecord::Schema.define(version: 20130814143220) do
 
   create_table "debtors", force: true do |t|
     t.string   "name"
@@ -24,6 +24,9 @@ ActiveRecord::Schema.define(version: 20130813190139) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "debtors", ["employer_id_number"], name: "index_debtors_on_employer_id_number"
+  add_index "debtors", ["name"], name: "index_debtors_on_name", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email"
