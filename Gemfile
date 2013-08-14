@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-#ruby=jruby-1.7.4
+#ruby=jruby-head
 #Magic JRUBY comment
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -17,6 +17,12 @@ platforms :jruby do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyrhino'
 end
+
+platforms :ruby do
+  gem 'sqlite'
+  gem 'therubyracer'
+end
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -79,6 +85,6 @@ group :deploy do
     gem 'warbler' 
     gem 'net-ssh', :require => "net/ssh"
     gem 'net-scp', :require => "net/scp" 
-    gem 'torquebox-remote-deployer'
+    # gem 'torquebox-remote-deployer'
   end
 end
