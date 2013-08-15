@@ -3,6 +3,7 @@ class UsersController < ApplicationController
     @user = User.new
   end
   def show
+    @user = User.find(1)
   end
   
   def create
