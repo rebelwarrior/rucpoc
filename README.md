@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 == README
 
 This README would normally document whatever steps are necessary to get the
@@ -26,3 +27,9 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+=======
+rucpoc
+======
+
+Registro Unico de Cuentas Por Cobrar
+>>>>>>> 67b0ce21743f12888769bba461bb9f501e4efe79
