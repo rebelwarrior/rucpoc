@@ -7,7 +7,7 @@
           %li= link_to "Home", '#'
           %li= link_to "Ayuda", '#'
           -if signed_in?
-            %li= link_to "Los Usuarios", '#'
+            %li= link_to "Los Usuarios", users_path
             %li#fat-menu.dropdown
               %a{:href => '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown' }
                 Usuario

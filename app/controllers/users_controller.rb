@@ -1,12 +1,11 @@
+#utf-8
+
 class UsersController < ApplicationController
-  before_action :signed_in_user,  only: [:edit, :update]
+  before_action :signed_in_user,  only: [:index, :edit, :update]
   before_action :correct_user,    only:[:edit, :update]
   
   def new
     @user = User.new
-  end
-  def show
-    @user = User.find(1)
   end
   
   def create
@@ -25,10 +24,18 @@ class UsersController < ApplicationController
     # @user = User.find(params[:id])
   end
   
+  def index
+    @users = User.paginate(page: params[:page])
+  end
+  
+  def show
+    @user = User.find(params[:id])
+  end
+  
   def update
     # @user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:success] = "Información del usuario actualizada."
+      flash[:success] = "Informacion del usuario actualizada."
       sign_in @user
       redirect_to @user
     else

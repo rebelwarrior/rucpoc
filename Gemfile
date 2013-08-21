@@ -57,6 +57,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
+gem 'will_paginate', '~> 3.0.4'
+gem 'bootstrap-will_paginate'
+
 group :development, :test do
   gem 'cucumber', require: false
   gem 'cucumber-rails', '~> 1.3.0', :require => false

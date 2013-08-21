@@ -1,0 +1,12 @@
+- provide(:title, "Lista de Usuarios")
+%h1 Lista de Usuarios
+
+= will_paginate
+
+%ul.users
+  - @users.each do |user|
+    %li
+      = link_to user.email, user
+  /
+
+= will_paginate
