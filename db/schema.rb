@@ -11,15 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130813154928) do
+ActiveRecord::Schema.define(version: 20130821151047) do
+
+  create_table "debtors", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "tel"
+    t.string   "address"
+    t.string   "location"
+    t.string   "contact_person"
+    t.string   "employer_id_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "debtors", ["employer_id_number"], name: "index_debtors_on_employer_id_number"
+  add_index "debtors", ["name"], name: "index_debtors_on_name", unique: true
 
   create_table "users", force: true do |t|
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
+    t.string   "remember_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
 end

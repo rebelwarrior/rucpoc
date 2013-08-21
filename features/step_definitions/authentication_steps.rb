@@ -1,5 +1,5 @@
 Given(/^a user visits the login page$/) do
-  visit sigin_path
+  visit login_path
 end
 
 When(/^he submits invalid login information$/) do
