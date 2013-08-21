@@ -4,9 +4,9 @@
 = will_paginate
 
 %ul.users
-  - @users.each do |user|
-    %li
-      = link_to user.email, user
+  -# @users.each do |user|
+    -# =render user #notice singular
+  = render @users
   /
 
 = will_paginate
