@@ -1,5 +1,5 @@
 Given(/^a user visits the login page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit sigin_path
 end
 
 When(/^he submits invalid login information$/) do
