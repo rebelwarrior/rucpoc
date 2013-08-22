@@ -1,5 +1,4 @@
-#utf-8
-
+#coding: utf-8
 class UsersController < ApplicationController
   before_action :signed_in_user,  only: [:index, :edit, :update]
   before_action :correct_user,    only:[:edit, :update]

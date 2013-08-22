@@ -1,3 +1,4 @@
+#coding: utf-8
 class SessionsController < ApplicationController
   
   def new
@@ -10,7 +11,7 @@ class SessionsController < ApplicationController
       #redirect_back_or in controllers/hepers/sessions_helper.rb
       redirect_back_or user
     else
-      flash.now[:error] = "Email y/o password invalido"
+      flash.now[:error] = "Email y/o password inválido"
       render 'new'
     end
   end
