@@ -1,35 +1,10 @@
-<<<<<<< HEAD
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
-=======
+======
 rucpoc
 ======
 
-Registro Unico de Cuentas Por Cobrar
->>>>>>> 67b0ce21743f12888769bba461bb9f501e4efe79
+Registro Único de Cuentas Por Cobrar
+
+
+
+Part of this code is from Ruby Tutorial book by M. Hartl 
+his code can be found at his [site](http://ruby.railstutorial.org/) and was originally under an MIT license.
