@@ -19,6 +19,16 @@ describe User do
   
   it 'should be valid' do
     expect(@user).to be_valid
+  end 
+  
+  it { should_not be_admin }
+  
+  describe "with admin attribute se to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+    end
+    it {should be_admin}
   end
   
   describe "when email not present" do
