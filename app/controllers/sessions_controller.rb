@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       #redirect_back_or in controllers/hepers/sessions_helper.rb
       redirect_back_or user
     else
-      flash.now[:error] = "Email y/o password inválido"
+      flash.now[:error] = "Email y/o password invalido"
       render 'new'
     end
   end
