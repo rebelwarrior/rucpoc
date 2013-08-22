@@ -1,3 +1,4 @@
+#coding: utf-8
 class Debtor < ActiveRecord::Base
   #Deudor
    before_save { self.email = email.downcase }
