@@ -1,7 +1,7 @@
 #coding: utf-8
 class Debtor < ActiveRecord::Base
   #Deudor
-   has_many :collections
+   has_many :collections  #, dependent: :destroy
    before_save { self.email = email.downcase }
    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
    VALID_TEL_REGEX =/\A[0-9]{3}-?[0-9]{3}-?[0-9]{4}\z/

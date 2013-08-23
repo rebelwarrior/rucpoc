@@ -1,6 +1,6 @@
 #coding: utf-8
 class DebtorsController < ApplicationController
-  before_action :signed_in_user
+  before_action :signed_in_user#, only: [:new, :create, :update, :edit, :destroy]
   
   def new
     @user = current_user
@@ -32,6 +32,7 @@ class DebtorsController < ApplicationController
   def show
     @user = current_user
     @debtor = Debtor.find(params[:id])
+    @collections = @debtor.collections.paginate(page: params[:page])
   end
   
   def update

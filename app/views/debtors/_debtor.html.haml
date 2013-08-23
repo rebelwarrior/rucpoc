@@ -1,8 +1,10 @@
 %li
+  = "#{debtor.id}"
+  = " "
   = link_to debtor.name, debtor 
   = " - "
-  = link_to debtor.tel, debtor 
-  = link_to debtor.email, debtor 
+  = debtor.tel
+  = debtor.email
   = link_to debtor.employer_id_number, debtor 
   - if current_user.admin? #or current_user.supervisor?
     = " | "

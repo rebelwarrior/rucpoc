@@ -79,8 +79,8 @@ end
 
 
 group :development do
-  gem 'pry'
   gem 'localeapp', require: false
+  gem 'pry-rails'
 end
 
 group :deploy do
