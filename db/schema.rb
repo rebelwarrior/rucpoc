@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130822142828) do
+ActiveRecord::Schema.define(version: 20130822172547) do
+
+  create_table "collections", force: true do |t|
+    t.string   "internal_invoice_number"
+    t.decimal  "amount_owed"
+    t.boolean  "paid?",                           default: false
+    t.integer  "collection_payment_id_number"
+    t.string   "collection_payment_emmiter_info"
+    t.string   "transaction_contact_person"
+    t.string   "notes"
+    t.string   "bounced_check_bank"
+    t.string   "bounced_check_number"
+    t.integer  "debtor_id"
+    t.boolean  "being_processed?",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "collections", ["internal_invoice_number"], name: "index_collections_on_internal_invoice_number"
 
   create_table "debtors", force: true do |t|
     t.string   "name"

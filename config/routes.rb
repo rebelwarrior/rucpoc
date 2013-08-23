@@ -1,7 +1,10 @@
 RucPoc1::Application.routes.draw do
+  get "collections/new"
   get "users/new"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
+  resources :collections, only: [:create, :destroy, :show]
+  resources :debtors
   match '/signup',  to: 'users#new',        via: 'get'
   match '/login',   to: 'sessions#new',     via: 'get'  
   match '/logout',  to: 'sessions#destroy', via: 'delete'
