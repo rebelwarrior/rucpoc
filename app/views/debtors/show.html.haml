@@ -1,0 +1,21 @@
+- provide(:title, "Lista de Deudores")
+%h1 Lista de Deudores:
+.row
+  %aside.span4
+    %section
+      %h1
+        = @debtor.name
+      %p
+        = @debtor.email
+        ="    ||   "
+        = @debtor.tel
+        !="<br>"
+        = @debtor.address
+        ="   ||   "
+        = @debtor.location
+        !="<br>"
+        = @debtor.contact_person
+        !="<br>"
+        = @debtor.employer_id_number
+        !="<br>"
+        

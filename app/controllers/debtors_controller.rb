@@ -1,0 +1,78 @@
+#coding: utf-8
+class DebtorsController < ApplicationController
+  before_action :signed_in_user
+  
+  def new
+    @user = current_user
+    @debtor = Debtor.new
+  end
+  
+  def create
+    @user = current_user
+    @debtor = Debtor.new(debtor_params) 
+    if @debtor.save
+      flash[:success] = "Nuevo Record de Deudor Creado."
+      redirect_to @debtor
+    else
+      render 'new'
+    end
+  end
+  
+  def edit
+    @user = current_user
+    # now done w/ a before action
+    # @user = User.find(params[:id])
+  end
+  
+  def index
+    @user = current_user
+    @debtors = Debtor.paginate(page: params[:page])
+  end
+  
+  def show
+    @user = current_user
+    @debtor = Debtor.find(params[:id])
+  end
+  
+  def update
+    @user = current_user
+    # @user = User.find(params[:id])
+    if @debtor.update_attributes(debtor_params)
+      flash[:success] = "Informacion del deudor actualizada."
+      redirect_to @debtor
+    else
+      render 'edit'
+    end
+  end
+  
+  def destroy
+    @user = current_user
+    #Should only be certain users --> Supervisor users.
+    Debtor.find(params[:id]).destroy
+    flash[:success] = "Record del deudor borrado."
+    redirect_to debtors_url
+  end
+  
+  private
+    def debtor_params
+      if signed_in?
+        params.require(:debtor).permit(:name, :email, :tel, :address,
+                                        :location, :contact_person, :employer_id_number)
+      else
+        redirect_to login_path
+      end
+    end
+  
+  
+  # def create
+  #   @collection = current_debtor.collections.build(collections_params)
+  #   if @collection.save
+  #     flash[:success] = "Factura creada."
+  #     # redirect_to root_url
+  #   else
+  #     #render 'static_pages/home'
+  #   end
+  #   
+  # end
+  
+end

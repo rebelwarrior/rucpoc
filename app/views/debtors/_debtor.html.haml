@@ -1,0 +1,10 @@
+%li
+  = link_to debtor.name, debtor 
+  = " - "
+  = link_to debtor.tel, debtor 
+  = link_to debtor.email, debtor 
+  = link_to debtor.employer_id_number, debtor 
+  - if current_user.admin? #or current_user.supervisor?
+    = " | "
+    = link_to "delete", debtor, method: :delete, data: {confirm: "Confirme Borrar Record: ¿Seguro?"}
+  /

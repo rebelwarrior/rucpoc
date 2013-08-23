@@ -1,0 +1,22 @@
+- provide(:title, "Crear Record de Deudor")
+%h1 Crear Record de Deudor Nuevo
+.row
+  %div{:class => "span6 offset3"}
+    =form_for(@debtor) do |f|
+      = render 'shared/error_messages'
+      =f.label :name
+      =f.text_field :name
+      =f.label :email
+      =f.text_field :email
+      =f.label :tel
+      =f.text_field :tel
+      =f.label :address
+      =f.text_field :address
+      =f.label :location, "Direccion Fisica"
+      =f.text_field :location
+      =f.label :contact_person
+      =f.text_field :contact_person
+      =f.label :employer_id_number
+      =f.text_field :employer_id_number
+      =f.submit "Crear Record de Deudor Nuevo", class: "btn btn-large btn-primary"
+  /end  

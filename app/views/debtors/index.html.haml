@@ -1,0 +1,10 @@
+- provide(:title, "Lista de Deudores")
+%h1 Lista de Deudores
+
+= will_paginate
+
+%ul.debtors
+  = render @debtors
+  /
+
+= will_paginate
