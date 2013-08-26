@@ -20,6 +20,8 @@ class DebtorsController < ApplicationController
   
   def edit
     @user = current_user
+    @debtor = Debtor.find(params[:id])
+    cookies[:current_debtor_id] = @debtor.id
     # now done w/ a before action
     # @user = User.find(params[:id])
   end
@@ -32,14 +34,14 @@ class DebtorsController < ApplicationController
   def show
     @user = current_user
     @debtor = Debtor.find(params[:id])
-    cookies[:current_debtor] = @debtor
+    cookies[:current_debtor_id] = @debtor.id
     @collections = @debtor.collections.paginate(page: params[:page])
   end
   
   def update
     @user = current_user
     # @user = User.find(params[:id])
-    @debtor ||= cookies[:current_debtor] 
+    @debtor = Debtor.find(cookies[:current_debtor_id])
     if @debtor.update_attributes(debtor_params)
       flash[:success] = "Informacion del deudor actualizada."
       redirect_to @debtor

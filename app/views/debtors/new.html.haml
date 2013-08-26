@@ -1,6 +1,13 @@
 - provide(:title, "Crear Record de Deudor")
 %h1 Crear Record de Deudor Nuevo
 .row
+  -if @debtor.errors.any?
+    %p
+      Problemas con:
+    - @debtor.errors.full_messages.each do |msg|
+      %li.alert
+        = msg
+  /
   %div{:class => "span6 offset3"}
     =form_for(@debtor) do |f|
       = render 'shared/error_messages'
@@ -10,9 +17,9 @@
       =f.text_field :email
       =f.label :tel
       =f.text_field :tel
-      =f.label :address
+      =f.label :address, "Direccioón Postal"
       =f.text_field :address
-      =f.label :location, "Direccion Fisica"
+      =f.label :location, "Dirección Física"
       =f.text_field :location
       =f.label :contact_person
       =f.text_field :contact_person

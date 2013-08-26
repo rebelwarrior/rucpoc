@@ -4,32 +4,33 @@ class CollectionsController < ApplicationController
   
   def new
     @user = current_user
-    debtor = cookies[:current_debtor]
+    @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
     @collection = Collection.new
   end
   
   def create
     @user = current_user
     #need to create a current_debtor or something
-    debtor = cookies[:current_debtor]
+    debtor = Debtor.find_by_id(cookies[:current_debtor_id])
     @collection = debtor.collections.build(collection_params)
     # @collection = Collection.new(collection_params) 
     if @collection.save
       flash[:success] = "Nueva Factura Creada"
       redirect_to @collection
     else
+      flash[:error] = "Factura no gravada"
       render 'new'
     end
   end
   
   def index
     @user = current_user
-    # @collection = Collection.paginate(page: params[:page])
   end
   
   def show
     @user = current_user
-    # @Collection = Debtor.collection.find(params[:id])
+    @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
+    @collections = @debtor.collections
   end
   
   # def update
@@ -45,9 +46,10 @@ class CollectionsController < ApplicationController
 
   
   private
-    def collections_params
+    def collection_params
       if signed_in?
-        params.require(:collection).permit(:amount_owed)
+        params.require(:collection).permit(:amount_owed, :bounced_check_bank, 
+                                            :bouncec_check_number, :notes, :internal_invoice_number)
       else
         redirect_to login_path
       end

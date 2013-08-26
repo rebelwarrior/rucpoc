@@ -4,13 +4,15 @@
   %aside.span4
     %section
       %h1
-        = @debtor.name
-        = @debtor.contact_person
+        -if @debtor
+          = @debtor.name
+          ="   |  Persona Contacto: "
+          = @debtor.contact_person
+        /end  
       %p
-      - if @debtor.collections.any?
-        %h3
-          Facturas:
-        %ol.microposts
-          = render @collections
-        = will_paginate @collections
-      /end
+        - if @debtor and @debtor.collections.any?
+          %h3
+            Facturas:
+          %ol.microposts
+            = render @collections
+        /end

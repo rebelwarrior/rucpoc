@@ -1,4 +1,5 @@
 %li
   %span.content
     = collection.amount_owed
-    = "Fecha No implementada #{time_ago_in_words(Time.now)}"
+    = "  --  "
+    = "Actulizada: #{time_ago_in_words(collection.updated_at)}"

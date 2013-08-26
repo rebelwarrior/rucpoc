@@ -18,6 +18,7 @@
         !="<br>"
         = @debtor.employer_id_number
         !="<br>"
+        = link_to "Editar Record", edit_debtor_path
       %p
       - if @debtor.collections.any?
         %h3
@@ -25,8 +26,6 @@
         %ol.microposts
           = render @collections
         = will_paginate @collections
-      - else 
-        =# render collection new
       /end    
       %p
         %a{:href => "#{url_for new_collection_path}", :class => "btn btn-large btn-primary"}
