@@ -25,7 +25,9 @@
         %ol.microposts
           = render @collections
         = will_paginate @collections
+      - else 
+        =# render collection new
       /end    
       %p
-        ="--> Añadir Factura"
-        =# cookies[:current_debtor]
+        %a{:href => "#{url_for new_collection_path}", :class => "btn btn-large btn-primary"}
+          Añadir Factura

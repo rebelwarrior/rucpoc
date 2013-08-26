@@ -4,6 +4,12 @@
 %h1 Crear Una Factura Nueva de Cheque Rebotado
 .row
   %div{:class => "span6 offset3"}
+    - if cookies[:current_debtor].blank?
+      %select
+        -list_debtors.each do |debtor|
+          %option 
+            = debtor
+    /end        
     =form_for(@collection) do |f|
       = render 'shared/error_messages'
       =f.label :internal_invoice_number

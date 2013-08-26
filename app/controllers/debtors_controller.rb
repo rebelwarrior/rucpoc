@@ -39,6 +39,7 @@ class DebtorsController < ApplicationController
   def update
     @user = current_user
     # @user = User.find(params[:id])
+    @debtor ||= cookies[:current_debtor] 
     if @debtor.update_attributes(debtor_params)
       flash[:success] = "Informacion del deudor actualizada."
       redirect_to @debtor

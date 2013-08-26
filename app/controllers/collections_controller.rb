@@ -4,12 +4,14 @@ class CollectionsController < ApplicationController
   
   def new
     @user = current_user
+    debtor = cookies[:current_debtor]
     @collection = Collection.new
   end
   
   def create
     @user = current_user
     #need to create a current_debtor or something
+    debtor = cookies[:current_debtor]
     @collection = debtor.collections.build(collection_params)
     # @collection = Collection.new(collection_params) 
     if @collection.save
