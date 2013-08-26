@@ -32,6 +32,7 @@ class DebtorsController < ApplicationController
   def show
     @user = current_user
     @debtor = Debtor.find(params[:id])
+    cookies[:current_debtor] = @debtor
     @collections = @debtor.collections.paginate(page: params[:page])
   end
   

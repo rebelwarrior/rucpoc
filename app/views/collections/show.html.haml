@@ -1,0 +1,16 @@
+- provide(:title, "Record de la Factura")
+%h1 Factura:
+.row
+  %aside.span4
+    %section
+      %h1
+        = @debtor.name
+        = @debtor.contact_person
+      %p
+      - if @debtor.collections.any?
+        %h3
+          Facturas:
+        %ol.microposts
+          = render @collections
+        = will_paginate @collections
+      /end

@@ -2,7 +2,8 @@
 class Collection < ActiveRecord::Base
   belongs_to :debtor, touch: true
   VALID_INT_NUM_REGEX = /\A[[[:digit:]]-]\z/i
-  validates :internal_invoice_number, presence: true, format: { with: VALID_INT_NUM_REGEX}, uniqueness: true
+  validates :internal_invoice_number, presence: true, format: { with: VALID_INT_NUM_REGEX, 
+            message: "Debe ser un numero." }, uniqueness: true 
   validates :transaction_contact_person, length: {maximum: 144}
   
 end
