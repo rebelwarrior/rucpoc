@@ -1,5 +1,10 @@
 %li
   %span.content
+    = link_to "#{collection.id}", collection
     = collection.amount_owed
     = "  --  "
     = "Actulizada: #{time_ago_in_words(collection.updated_at)}"
+    = link_to "Editar", collection, method: :edit
+    - if current_user.admin? or current_user.supervisor?
+      = " | "
+      = link_to "delete", collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}
