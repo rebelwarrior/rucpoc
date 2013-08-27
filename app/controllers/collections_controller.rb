@@ -1,6 +1,6 @@
 #coding: utf-8
 class CollectionsController < ApplicationController
-  before_action :signed_in_user#, only: [:new, :create, :update, :edit, :destroy]
+  before_action :signed_in_user
   
   def new
     @user = current_user

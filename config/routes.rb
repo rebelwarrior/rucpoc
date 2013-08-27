@@ -7,15 +7,18 @@ RucPoc1::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :collections #, only: [:new, :edit, :update, :create, :destroy, :show]
   resources :debtors
-  match '/signup',  to: 'users#new',        via: 'get'
-  match '/login',   to: 'sessions#new',     via: 'get'  
-  match '/logout',  to: 'sessions#destroy', via: 'delete'
+  # root 'static_pages#home'
+  match '/signup',  to: 'users#new',          via: 'get'
+  match '/login',   to: 'sessions#new',       via: 'get'  
+  match '/logout',  to: 'sessions#destroy',   via: 'delete'
+  match '/help',    to: 'static_pages#help',  via: 'get'
+  match '/home',    to: 'static_pages#home',  via: 'get'
   
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
+  ### You can have the root of your site routed with "root"
   # root 'welcome#index'
 
   # Example of regular route:

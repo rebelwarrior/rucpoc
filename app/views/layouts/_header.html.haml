@@ -4,8 +4,8 @@
       =link_to "RucPoc", '#', id: "logo"
       %nav
         %ul{ :class => 'nav pull-right' }
-          %li= link_to "Home", '#'
-          %li= link_to "Ayuda", '#'
+          %li= link_to "Home", home_path
+          %li= link_to "Ayuda", help_path
           -if signed_in?
             %li= link_to "Los Usuarios", users_path
             %li#fat-menu.dropdown
