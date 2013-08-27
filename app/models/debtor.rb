@@ -12,4 +12,13 @@ class Debtor < ActiveRecord::Base
    validates :tel, format: { with: VALID_TEL_REGEX }
    validates :employer_id_number, format: { with: VALID_EIN_REGEX }
   
+  def self.search(search_term)
+    if search_term
+      find(:all, :conditions => ['name LIKE ?', "%#{search_term}%"])
+    else
+      find(:all)
+    end
+  end
+  
+  
 end

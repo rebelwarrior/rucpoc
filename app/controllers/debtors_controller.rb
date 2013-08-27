@@ -26,6 +26,13 @@ class DebtorsController < ApplicationController
     # @user = User.find(params[:id])
   end
   
+  def search
+    @debtor = Debtor.search(params[:search])
+    # unless @debtor.nil?
+    #   cookies[:current_debtor_id] = @debtor.id
+    # end
+  end
+  
   def index
     @user = current_user
     @debtors = Debtor.paginate(page: params[:page])
