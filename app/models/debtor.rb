@@ -14,9 +14,17 @@ class Debtor < ActiveRecord::Base
   
   def self.search(search_term)
     if search_term
-      find(:all, :conditions => ['name LIKE ?', "%#{search_term}%"])
+      result = where('name LIKE ? OR employer_id_number LIKE ?', "%#{search_term}%", "%#{search_term}%")
+      #result = find(:all, :conditions => ['name LIKE ?', "%#{search_term}%"])
+      if result.size.zero?
+        flash[:notice] = "No result found."
+        order('created_at DESC') # default is all
+      else 
+        result
+      end
     else
-      find(:all)
+      # find(:all)
+      all
     end
   end
   

@@ -28,6 +28,7 @@ class DebtorsController < ApplicationController
   
   def search
     @debtor = Debtor.search(params[:search])
+    #@debtor = Debtor.paginate(search: params[:search])
     # unless @debtor.nil?
     #   cookies[:current_debtor_id] = @debtor.id
     # end
