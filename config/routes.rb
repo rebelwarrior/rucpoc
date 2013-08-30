@@ -13,6 +13,7 @@ RucPoc1::Application.routes.draw do
   match '/logout',  to: 'sessions#destroy',   via: 'delete'
   match '/help',    to: 'static_pages#help',  via: 'get'
   match '/home',    to: 'static_pages#home',  via: 'get'
+  match 'debtor/search',  to: 'debtors#search',     via: 'get', as: 'search'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

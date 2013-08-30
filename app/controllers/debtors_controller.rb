@@ -28,15 +28,15 @@ class DebtorsController < ApplicationController
   
   def search
     @debtor = Debtor.search(params[:search])
-    #@debtor = Debtor.paginate(search: params[:search])
-    # unless @debtor.nil?
-    #   cookies[:current_debtor_id] = @debtor.id
-    # end
   end
   
   def index
     @user = current_user
-    @debtors = Debtor.paginate(page: params[:page])
+    @debtors = params[:search].nil? ? Debtor.paginate(page: params[:page]) : Debtor.search(params[:search])
+    #map is an alias of collect, reduce of inject and select of find_all
+    @color_code_proc = ->(debtor){debtor.collections.collect do |invoice|
+        invoice.amount_owed unless invoice.paid? #or invoice.inprocess
+      end.reduce(:+) }
   end
   
   def show

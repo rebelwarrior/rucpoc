@@ -7,6 +7,7 @@ class Collection < ActiveRecord::Base
   validates :transaction_contact_person, length: {maximum: 144}
   validates :debtor_id, presence: true
   
+  
 end
 
 
