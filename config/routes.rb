@@ -7,7 +7,7 @@ RucPoc1::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :collections #, only: [:new, :edit, :update, :create, :destroy, :show]
   resources :debtors
-  # root 'static_pages#home'
+  root 'static_pages#home'
   match '/signup',  to: 'users#new',          via: 'get'
   match '/login',   to: 'sessions#new',       via: 'get'  
   match '/logout',  to: 'sessions#destroy',   via: 'delete'

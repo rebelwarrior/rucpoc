@@ -27,15 +27,16 @@ class CollectionsController < ApplicationController
     @user = current_user
     redirect_to debtors_path if cookies[:current_debtor_id].nil?
     debtor = Debtor.find_by_id(cookies[:current_debtor_id])
-    @collection = debtor.collections.build(collection_params)
+    @collection = Collection.find_by_id(params[:id])
   end
   
   def update
     @user = current_user
     debtor = Debtor.find_by_id(cookies[:current_debtor_id])
-    @collection = debtor.collections.build(collection_params)
+    # @collection = debtor.collections #.build(collection_params) #erroring out
     # @collection = Collection.new(collection_params) 
-    if @collection.save
+    @collection = Collection.find_by_id(params[:id])
+    if @collection.update_attributes(collection_params)
       flash[:success] = "Factura Actualizada"
       redirect_to @collection
     else

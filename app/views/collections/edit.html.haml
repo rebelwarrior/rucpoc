@@ -1,0 +1,19 @@
+- provide(:title, "Editar Factura")
+%h1 Editar Factura
+.row
+  %div{:class => "span6 offset3"}
+    =form_for(@collection,  url: collection_path, method: :patch) do |f|
+      = render 'shared/error_messages'
+      =f.label :internal_invoice_number, "Número interno de factura"
+      =f.text_field :internal_invoice_number
+      =f.label :amount_owed, "Cantidad debida"
+      =f.text_field :amount_owed    
+      =f.label :bounced_check_bank, "Nombre del banco del cheque devuelto"
+      =f.text_field :bounced_check_bank
+      =f.label :bounced_check_number, "Número del cheque devuelto"
+      =f.text_field :bounced_check_number
+      =f.label :notes, "Notas"
+      =f.text_field :notes
+      =f.label :paid?, "Pagada? (add radio box)"
+      =f.submit "Editar Factura", class: "btn btn-large btn-primary"
+/

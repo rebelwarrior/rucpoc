@@ -3,7 +3,7 @@
 .row
   %aside.span4
     %section
-      %h1
+      %h5
         -if @debtor
           = @debtor.name
           ="   |  Persona Contacto: "
@@ -11,7 +11,7 @@
         /end  
       %p
         - if @debtor and @debtor.collections.any?
-          %h3
+          %h4
             Facturas:
           %ol.microposts
             = render @collections #renders the partial

@@ -1,11 +1,13 @@
-%li{:class => "#{collection.paid? ? "green" : "red"}"}
+%li{:class => "#{red_green_yellow_grey_tag(collection)}"}
   %span.content
     = link_to "#{collection.id}", collection
     = collection.amount_owed
     = "  --  "
     = collection.paid? ? "Pagada  --" : ""
+    = collection.being_processed? ? "En Proceso  --" : ""
     = "Actulizada hace: #{time_ago_in_words(collection.updated_at)}"
-    = link_to "Editar", collection, method: :edit
+    - #method below doesn't work from debtor's path
+    = link_to "Editar", edit_collection_path(collection), method: :get  
     - if current_user.admin? or current_user.supervisor?
       = " | "
       = link_to "delete", collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}

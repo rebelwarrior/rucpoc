@@ -36,7 +36,10 @@ class DebtorsController < ApplicationController
     #map is an alias of collect, reduce of inject and select of find_all
     @color_code_proc = ->(debtor){debtor.collections.collect do |invoice|
         invoice.amount_owed unless invoice.paid? #or invoice.inprocess
-      end.reduce(:+) }
+      end.reduce do |amount, total|
+        amount = amount.nil? ? 0 : amount
+        total + amount
+      end }
   end
   
   def show
