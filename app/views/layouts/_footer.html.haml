@@ -2,6 +2,8 @@
   %nav
     %ul
       %li
+        = "usuario actual: #{current_user.nil? ? 'ninguno' : current_user.email }"
+      %li
         = link_to "Ayuda", help_path
       %li
         = link_to "Usuario Nuevo", signup_path
