@@ -6,27 +6,11 @@
       - @user.errors.full_messages.each do |msg|
         %li= "* #{msg}"
 /
--if !@debtor.nil? && @debtor.errors.any?
+-if !object.nil? && object.errors.any?
   #error_explanation
     %div{:class => "alert alert-error"}
-      ="Hay #{ pluralize(@debtor.errors.count, 'error')}"
+      ="Hay #{ pluralize(object.errors.count, 'error')}"
     %ul
-      - @debtor.errors.full_messages.each do |msg|
-        %li= "* #{msg}"
-/
--if !@collection.nil? && @collection.errors.any?
-  #error_explanation
-    %div{:class => "alert alert-error"}
-      ="Hay #{ pluralize(@collection.errors.count, 'error')}"
-    %ul
-      - @collection.errors.full_messages.each do |msg|
-        %li= "* #{msg}"
-/
--if !@logs.nil? && @logs.errors.any?
-  #error_explanation
-    %div{:class => "alert alert-error"}
-      ="Hay #{ pluralize(@logs.errors.count, 'error')}"
-    %ul
-      - @logs.errors.full_messages.each do |msg|
+      - object.errors.full_messages.each do |msg|
         %li= "* #{msg}"
 /
