@@ -3,13 +3,13 @@
 .row
   %div{:class => "span6 offset3"}
     =form_for(@debtor) do |f|
-      = render 'shared/error_messages'
+      = render partial: 'shared/error_messages', object: f.object
       =f.label :name
       =f.text_field :name
       =f.label :email
-      =f.text_field :email
+      =f.email_field :email
       =f.label :tel
-      =f.text_field :tel
+      =f.telephone_field :tel
       =f.label :address
       =f.text_field :address
       =f.label :location, "Direccion Fisica"
