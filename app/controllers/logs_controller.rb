@@ -12,11 +12,18 @@ class LogsController < ApplicationController
   
   def create
     @user = current_user
-    debtor = Debtor.find_by_id(cookies[:current_debtor_id])
-    @collection = Collection.find_by_id(params[:collection_id])
+    # debtor = Debtor.find_by_id(cookies[:current_debtor_id])
+    collection = Collection.find_by_id(params[:collection_id])
     # @log = Log.new(log_params) 
-    @log = @collection.log.build(log_params)
+    @log = collection.logs.build(params[:log])
     # @collection.log.build(params[:log])
+    if @log.save
+      flash[:success] = "Nueva Factura Creada"
+      redirect_to @log
+    else
+      flash[:error] = "Factura no gravada"
+      render 'new'
+    end
     
   end
   

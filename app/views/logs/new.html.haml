@@ -1,6 +1,7 @@
 - provide(:title, "Bitácora")
-%h1 Logs#new
-%p Find me in app/views/logs/new.html.haml
+%h1 
+  ="Añadir a la bitácora para factura de #{@debtor.name}"
+%p 
 
 %h3
   %span.content{:class => "#{red_green_yellow_grey_tag(@collection)}"}
@@ -16,6 +17,6 @@
   =form_for(@log, :url => collection_logs_path(@collection)) do |f|
     =# render 'shared/error_messages'
     =f.label :content, "Notas"
-    =f.text_field :content
+    =f.text_area :content
     =f.submit "Crear Bitácora", class: "btn btn-large btn-primary"
 /end
