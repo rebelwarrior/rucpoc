@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130822172547) do
+ActiveRecord::Schema.define(version: 20130910122136) do
 
   create_table "collections", force: true do |t|
     t.string   "internal_invoice_number"
-    t.decimal  "amount_owed"
-    t.boolean  "paid?",                           default: false
+    t.decimal  "amount_owed",                     precision: 12, scale: 2
+    t.boolean  "paid?",                                                    default: false
     t.integer  "collection_payment_id_number"
     t.string   "collection_payment_emmiter_info"
     t.string   "transaction_contact_person"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20130822172547) do
     t.string   "bounced_check_bank"
     t.string   "bounced_check_number"
     t.integer  "debtor_id"
-    t.boolean  "being_processed?",                default: false
+    t.boolean  "being_processed?",                                         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20130822172547) do
   add_index "debtors", ["employer_id_number"], name: "index_debtors_on_employer_id_number"
   add_index "debtors", ["name"], name: "index_debtors_on_name", unique: true
 
+  create_table "logs", force: true do |t|
+    t.string   "content"
+    t.integer  "collection_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "logs", ["collection_id"], name: "index_logs_on_collection_id"
+  add_index "logs", ["user_id", "created_at"], name: "index_logs_on_user_id_and_created_at"
+
   create_table "users", force: true do |t|
     t.string   "email"
     t.datetime "created_at"
@@ -53,6 +64,8 @@ ActiveRecord::Schema.define(version: 20130822172547) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "admin",           default: false
+    t.boolean  "supervisor",      default: false
+    t.string   "work_area"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -1,4 +1,5 @@
 RucPoc1::Application.routes.draw do
+  get "logs/new"
   get "static_pages/home"
   get "static_pages/help"
   get "collections/new"

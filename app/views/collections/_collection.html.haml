@@ -11,3 +11,5 @@
     - if current_user.admin? or current_user.supervisor?
       = " | "
       = link_to "delete", collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}
+    - if collection.logs.any?
+      = link_to 'logs', show_log_path(collection), method: :get
