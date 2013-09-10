@@ -6,8 +6,11 @@ RucPoc1::Application.routes.draw do
   get "users/new"
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  resources :collections #, only: [:new, :edit, :update, :create, :destroy, :show]
+  resources :collections do
+    resources :logs, only: [:new, :create, :show, :destroy]
+  end
   resources :debtors
+  # resources :logs, only: [:new, :create, :destroy]
   root 'static_pages#home'
   match '/signup',  to: 'users#new',          via: 'get'
   match '/login',   to: 'sessions#new',       via: 'get'  

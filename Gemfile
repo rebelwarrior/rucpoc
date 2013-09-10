@@ -80,6 +80,7 @@ end
 
 group :development do
   gem 'localeapp', require: false
+  gem 'pry', require: false
   # gem 'pry-rails'
 end
 

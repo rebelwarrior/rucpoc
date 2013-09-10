@@ -1,2 +1,21 @@
+- provide(:title, "Bitácora")
 %h1 Logs#new
 %p Find me in app/views/logs/new.html.haml
+
+%h3
+  %span.content{:class => "#{red_green_yellow_grey_tag(@collection)}"}
+    -# link_to "#{@collection.id}", @collection
+    = @debtor.name
+    = "  --  "
+    = @collection.amount_owed
+    = @collection.paid? ? "  --  Pagada  --" : ""
+    = @collection.being_processed? ? "  --  En Proceso  --" : ""
+    - #method below doesn't work from debtor's path
+/
+.content
+  =form_for(@log, :url => collection_logs_path(@collection)) do |f|
+    =# render 'shared/error_messages'
+    =f.label :content, "Notas"
+    =f.text_field :content
+    =f.submit "Crear Bitácora", class: "btn btn-large btn-primary"
+/end

@@ -28,6 +28,7 @@ module RucPoc1
     # For Bootstrap Sass
     config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
   end
+
   # class ActiveSupport::MessageVerifier::InvalidMessage < StandardError; end
 end
 

@@ -7,9 +7,14 @@
     = collection.being_processed? ? "En Proceso  --" : ""
     = "Actulizada hace: #{time_ago_in_words(collection.updated_at)}"
     - #method below doesn't work from debtor's path
-    = link_to "Editar", edit_collection_path(collection), method: :get  
+    %br
+    = link_to "<i class='icon-edit'></i> Editar".html_safe, edit_collection_path(collection), method: :get  
     - if current_user.admin? or current_user.supervisor?
       = " | "
-      = link_to "delete", collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}
+      = link_to "<i class='icon-trash'></i> Borrar".html_safe, collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}
     - if collection.logs.any?
-      = link_to 'logs', show_log_path(collection), method: :get
+      = link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_log_path(collection), method: :get
+    - else 
+      = " | "  
+      = link_to "<i class='icon-file'></i> Bitácora Nueva".html_safe, new_collection_log_path(collection), method: :get 
+      -# " | " 
