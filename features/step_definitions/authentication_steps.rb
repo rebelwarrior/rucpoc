@@ -11,7 +11,7 @@ Then(/^he should see and error message$/) do
 end
 
 Given(/^a user visits the sigin page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit login_path
 end
 
 Given(/^the user has an account$/) do
@@ -27,5 +27,5 @@ Then(/^he should see his profile page$/) do
 end
 
 Then(/^he should see a logout link$/) do
-  pending # express the regexp above with the code you wish you had
+  page.has_content?('Log out')
 end
