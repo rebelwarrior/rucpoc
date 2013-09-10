@@ -62,7 +62,7 @@ gem 'bootstrap-will_paginate'
 
 group :development, :test do
   gem 'cucumber', require: false
-  gem 'cucumber-rails', '~> 1.3.0', :require => false
+  gem 'cucumber-rails', '~> 1.4.0', :require => false
   # Remember to move /script/cucumber to /bin/cucumber
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'rspec-rails'
