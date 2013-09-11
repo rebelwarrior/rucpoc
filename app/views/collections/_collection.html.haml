@@ -12,9 +12,10 @@
     - if current_user.admin? or current_user.supervisor?
       = " | "
       = link_to "<i class='icon-trash'></i> Borrar".html_safe, collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}
-    - if collection.logs.any?
-      = link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_log_path(collection), method: :get
-    - else 
       = " | "  
+    - if collection.logs.any?
+      = link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_log_path(collection, collection.logs), method: :get
+      %ol
+        = render collection.logs
+    - else 
       = link_to "<i class='icon-file'></i> Bitácora Nueva".html_safe, new_collection_log_path(collection), method: :get 
-      -# " | " 

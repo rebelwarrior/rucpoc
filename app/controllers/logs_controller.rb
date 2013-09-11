@@ -9,7 +9,7 @@ class LogsController < ApplicationController
     redirect_to debtors_path if cookies[:current_debtor_id].nil?
     @collection = Collection.find_by_id(params[:collection_id])
     @debtor = Debtor.find_by_id(@collection.debtor_id)
-    @log = Log.new(:collection => @collection, :user => @user)
+    @log = Log.new(:collection => @collection, :user_id => @user.id)
     # @log = @collection.logs.build
   end
   
@@ -18,11 +18,12 @@ class LogsController < ApplicationController
     @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
     @collection = Collection.find_by_id(params[:collection_id])
     # @log = Log.new(log_params) 
+    params[:log].merge!(:user_id => current_user.id)
     @log = @collection.logs.build(log_params)
     # @collection.log.build(params[:log])
     if @log.save
       flash[:success] = "Nueva Bitácora Creada"
-      redirect_to @log
+      redirect_to @collection
     else
       flash[:error] = "Bitácora no gravada"
       render 'new'
@@ -32,6 +33,8 @@ class LogsController < ApplicationController
   
   def show
     @user = current_user
+    @collection = Collection.find_by_id(params[:collection_id])
+    @logs = @collection.logs.all
     
   end
   
