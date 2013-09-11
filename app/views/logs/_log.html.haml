@@ -1,4 +1,4 @@
 %li{:'data-toggle' => 'popover', :'data-original-title' => "#{log.user_id} hace #{time_ago_in_words(log.created_at)} escribió: ", :'title data-content' => "#{log.content}", :'data trigger' => 'hover', :'data container' => 'sidebar'}
   = log.content
   %br
-  = "#{log.user_id} escribió en #{log.created_at.to_formatted_s :long_ordinal}"
+  = "#{find_log_user_email log} escribió en #{l log.created_at.in_time_zone("America/Puerto_Rico") }"#.to_formatted_s(:long_ordinal}"
