@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 class LogsController < ApplicationController
   before_action :signed_in_user
   
@@ -6,7 +9,7 @@ class LogsController < ApplicationController
     redirect_to debtors_path if cookies[:current_debtor_id].nil?
     @collection = Collection.find_by_id(params[:collection_id])
     @debtor = Debtor.find_by_id(@collection.debtor_id)
-    @log = Log.new(:collection => @collection)
+    @log = Log.new(:collection => @collection, :user => @user)
     # @log = @collection.logs.build
   end
   

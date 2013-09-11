@@ -15,6 +15,7 @@
 /
 .content
   =form_for(@log, :url => collection_logs_path(@collection)) do |f|
+    = render partial: 'shared/error_messages', :locals => { :object => f.object }
     =# render 'shared/error_messages'
     =f.label :content, "Notas"
     =f.text_area :content

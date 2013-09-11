@@ -5,10 +5,16 @@
     = form_for(@user) do |f|
       = render 'shared/error_messages'
       = f.label :email
-      = f.text_field :email
-      = f.label :password
-      = f.password_field :password
-      = f.label :password_confirmation, "Confirmar Password"
-      = f.password_field :password_confirmation
+      = f.email_field :email
+      -if true #current_user == @user
+        = f.label :password
+        = f.password_field :password
+        = f.label :password_confirmation, "Confirmar Password"
+        = f.password_field :password_confirmation
+      -if current_user.admin or current_user.supervisor
+        = f.check_box :supervisor 
+        = f.label :supervisor, :class => "checkbox inline" 
+        %br
+        %br 
       = f.submit "Grabar Cambios", :class => "btn btn-large btn-primary"
   /

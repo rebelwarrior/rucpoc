@@ -5,4 +5,7 @@
     %section
       %h1
         = @user.email
+      -if (current_user.admin? or current_user == @user)
+        %p
+          = link_to "Editar", edit_user_path(@user)
     

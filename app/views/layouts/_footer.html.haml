@@ -2,6 +2,8 @@
   %nav
     %ul
       %li
+        = "usuario actual: #{current_user.nil? ? 'ninguno' : current_user.email }"
+      %li
         = link_to '<i class="icon-info-sign"></i>Ayuda'.html_safe, help_path
       %li
         = link_to "Usuario Nuevo", signup_path

@@ -198,7 +198,7 @@ es:
     pm: pm
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
-    errors:
+    errors: 
       <<: *errors
   activerecord:
     errors:

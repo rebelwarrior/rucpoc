@@ -36,7 +36,7 @@ class UsersController < ApplicationController
     # @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Informacion del usuario actualizada."
-      sign_in @user
+      sign_in @user unless (current_user.admin or current_user.supervisor)
       redirect_to @user
     else
       render 'edit'
@@ -51,7 +51,13 @@ class UsersController < ApplicationController
   
   private
     def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
+      if current_user.admin
+        params.require(:user).permit(:email, :password, :password_confirmation, :supervisor)
+      elsif current_user.supervisor
+        params.require(:user).permit(:email, :password, :password_confirmation, :supervisor)
+      else
+        params.require(:user).permit(:email, :password, :password_confirmation)
+      end
     end
     
     # Before filters
@@ -65,11 +71,13 @@ class UsersController < ApplicationController
     
     def correct_user
       @user = User.find(params[:id])
-      redirect_to(login_url) unless current_user?(@user)
+      unless current_user?(@user) or current_user.admin 
+        redirect_to(login_url)
+      end
     end
     
     def admin_user
-      redirect_to(login_url) unless current_user.admin?
+      redirect_to(login_url) unless current_user.admin
     end
   
 end
