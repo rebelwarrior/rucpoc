@@ -12,16 +12,16 @@ class LogsController < ApplicationController
   
   def create
     @user = current_user
-    # debtor = Debtor.find_by_id(cookies[:current_debtor_id])
-    collection = Collection.find_by_id(params[:collection_id])
+    @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
+    @collection = Collection.find_by_id(params[:collection_id])
     # @log = Log.new(log_params) 
-    @log = collection.logs.build(params[:log])
+    @log = @collection.logs.build(log_params)
     # @collection.log.build(params[:log])
     if @log.save
-      flash[:success] = "Nueva Factura Creada"
+      flash[:success] = "Nueva Bitácora Creada"
       redirect_to @log
     else
-      flash[:error] = "Factura no gravada"
+      flash[:error] = "Bitácora no gravada"
       render 'new'
     end
     
@@ -44,7 +44,11 @@ class LogsController < ApplicationController
       flash.now![:error] = "Solo Administradores pueden borrar la bitacora."
     end
   end
-  
 
+private
+
+  def log_params
+    params.require(:log).permit(:user_id, :collection_id, :content)
+  end #:user_id, :collection_id, 
 
 end
