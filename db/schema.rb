@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130910122136) do
+ActiveRecord::Schema.define(version: 20130912120137) do
 
   create_table "collections", force: true do |t|
     t.string   "internal_invoice_number"
@@ -45,6 +45,12 @@ ActiveRecord::Schema.define(version: 20130910122136) do
 
   add_index "debtors", ["employer_id_number"], name: "index_debtors_on_employer_id_number"
   add_index "debtors", ["name"], name: "index_debtors_on_name", unique: true
+
+  create_table "departments", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "logs", force: true do |t|
     t.string   "content"
