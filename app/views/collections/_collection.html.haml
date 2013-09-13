@@ -16,7 +16,8 @@
     - if collection.logs.any?
       -# #######################################################++++++++++++++++++++++++++++++++++++++++++++++++
       = link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_log_path(collection, collection.logs), method: :get
-      %ol.hide
-        = render collection.logs
+      - content_for :logs_sidebar do
+        %ol
+          = render collection.logs
     - else 
       = link_to "<i class='icon-file'></i> Bitácora Nueva".html_safe, new_collection_log_path(collection), method: :get 
