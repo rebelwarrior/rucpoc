@@ -28,6 +28,10 @@ class DebtorsController < ApplicationController
   
   def search
     @debtor = Debtor.search(params[:search])
+    # respond_to do |format|
+    #   format.html
+    #   format.json
+    # end
   end
   
   def index

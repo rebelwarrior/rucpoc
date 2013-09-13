@@ -14,6 +14,8 @@
       =f.number_field :bounced_check_number
       =f.label :notes, "Notas"
       =f.text_field :notes
-      =f.label :paid?, "Pagada? (add radio box)"
+      =f.label "Pagada?", {class: 'checkbox inline checkbox-for-paid'}
+      =f.check_box :paid?
+      %br
       =f.submit "Editar Factura", class: "btn btn-large btn-primary"
 /

@@ -5,7 +5,7 @@
     %section
       %h5
         -if @debtor
-          = @debtor.name
+          = link_to @debtor.name, @debtor
           ="   |  Persona Contacto: "
           = @debtor.contact_person
         /end  

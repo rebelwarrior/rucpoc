@@ -72,8 +72,13 @@ class CollectionsController < ApplicationController
   private
     def collection_params
       if signed_in?
-        params.require(:collection).permit(:amount_owed, :bounced_check_bank, 
+        if current_user.admin or current_user.supervisor
+          params.require(:collection).permit(:amount_owed, :bounced_check_bank, :bouncec_check_number, 
+                                            :notes, :internal_invoice_number, :paid?)
+        else
+          params.require(:collection).permit(:amount_owed, :bounced_check_bank, 
                                             :bouncec_check_number, :notes, :internal_invoice_number)
+        end
       else
         redirect_to login_path
       end

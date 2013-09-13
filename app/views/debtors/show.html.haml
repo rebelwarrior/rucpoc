@@ -5,15 +5,16 @@
     %section
       %h1
         = @debtor.name
-      %p
+        %br
+      %p.grey
         = @debtor.email
         ="    ||   "
         = "tel. #{@debtor.tel}"
-        !="<br>"
+      %p
         = "Persona Contácto: #{@debtor.contact_person}"
-        !="<br>"
+        %br
         = "EIN: #{@debtor.employer_id_number}"
-        !="<br>"
+        %br
       %p
         = link_to "Editar Record del Deudor", edit_debtor_path
     %section
@@ -43,9 +44,9 @@
           %tbody  
             %tr
             %tr
-              %th
+              %th.grey
                 Dirección Física
-              %td
+              %td.grey
                 = @debtor.location
         
     %section

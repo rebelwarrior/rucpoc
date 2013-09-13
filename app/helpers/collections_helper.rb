@@ -1,7 +1,4 @@
 module CollectionsHelper
-  def list_debtors
-    []
-  end
   def red_green_yellow_grey_tag(invoice)
     if invoice.nil?
       "grey"
