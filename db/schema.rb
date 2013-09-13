@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130912120137) do
+ActiveRecord::Schema.define(version: 20130913000921) do
 
   create_table "collections", force: true do |t|
     t.string   "internal_invoice_number"
@@ -62,6 +62,12 @@ ActiveRecord::Schema.define(version: 20130912120137) do
 
   add_index "logs", ["collection_id"], name: "index_logs_on_collection_id"
   add_index "logs", ["user_id", "created_at"], name: "index_logs_on_user_id_and_created_at"
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email"
