@@ -14,6 +14,7 @@
       = link_to "<i class='icon-trash'></i> Borrar".html_safe, collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}
       = " | "  
     - if collection.logs.any?
+      -# #######################################################++++++++++++++++++++++++++++++++++++++++++++++++
       = link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_log_path(collection, collection.logs), method: :get
       %ol.hide
         = render collection.logs

@@ -7,6 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 depts = Departments.create([
+  name: 'Ninguna',
   name: 'Agua',
   name: 'Aire',
   name: 'Terrenos',

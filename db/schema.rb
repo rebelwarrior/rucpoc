@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130913000921) do
+ActiveRecord::Schema.define(version: 20130913135546) do
 
   create_table "collections", force: true do |t|
     t.string   "internal_invoice_number"
@@ -78,6 +78,8 @@ ActiveRecord::Schema.define(version: 20130913000921) do
     t.boolean  "admin",           default: false
     t.boolean  "supervisor",      default: false
     t.string   "work_area"
+    t.integer  "role_id",         default: 0
+    t.integer  "department_id",   default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

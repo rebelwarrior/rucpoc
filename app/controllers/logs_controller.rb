@@ -38,6 +38,10 @@ class LogsController < ApplicationController
     
   end
   
+  def index
+    @user = current_user
+  end
+  
   def destroy
     @user = current_user
     if current_user.admin?
