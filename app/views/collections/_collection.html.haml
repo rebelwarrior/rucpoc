@@ -1,4 +1,4 @@
-%li{:class => "#{red_green_yellow_grey_tag(collection)}"}
+%li{:class => "#{red_green_yellow_grey_tag(collection)} round-corners"}
   %span.content
     = link_to "#{collection.id}", collection
     = collection.amount_owed
@@ -14,8 +14,10 @@
       = link_to "<i class='icon-trash'></i> Borrar".html_safe, collection, method: :delete, data: {confirm: "Confirme Borrar Factura: ¿Seguro?"}
       = " | "  
     - if collection.logs.any?
+      = link_to "<i class='icon-file'></i> Bitácora Nueva".html_safe, new_collection_log_path(collection), method: :get
       -# #######################################################++++++++++++++++++++++++++++++++++++++++++++++++
-      = link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_log_path(collection, collection.logs), method: :get
+      -# link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_log_path(collection, collection.logs), method: :get
+      = link_to "<i class='icon-book'></i> Bitácora".html_safe, collection_logs_path(collection), method: :get
       - content_for :logs_sidebar do
         %ol.accordion#accordion-log
           = render collection.logs

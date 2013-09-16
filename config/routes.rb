@@ -7,7 +7,7 @@ RucPoc1::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :collections do
-    resources :logs, only: [:new, :create, :show, :destroy]
+    resources :logs, only: [:new, :create, :index, :show, :destroy]
   end
   resources :debtors
   # resources :logs, only: [:new, :create, :destroy]

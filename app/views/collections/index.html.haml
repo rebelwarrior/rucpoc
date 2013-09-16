@@ -1,7 +1,7 @@
 - provide(:title, "Facturas")
 %h1 Factura:
 .row
-  %aside.span4
+  %aside.span6
     %section
       %h1
         -if @debtor
@@ -16,3 +16,6 @@
           %ol.microposts
             = render @collections #renders the partial
         /end
+  %aside.span4
+    %section
+      =yield :logs_sidebar      

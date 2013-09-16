@@ -1,7 +1,7 @@
 #coding: utf-8
 class Collection < ActiveRecord::Base
   belongs_to :debtor, touch: true
-  has_many :logs
+  has_many :logs #depended destroy?
   VALID_INT_NUM_REGEX = /\A([[:digit:]]|-)*\z/i
   VALID_NUM_REGEX = /\A\d*/
   validates :internal_invoice_number, presence: true, format: { with: VALID_INT_NUM_REGEX, 

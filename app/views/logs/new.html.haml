@@ -1,10 +1,10 @@
-- provide(:title, "Bitácora")
+- provide(:title, "Crear Bitácora Nueva")
 %h1 
   ="Añadir a la bitácora para factura de #{@debtor.name}"
 %p 
 
 %h3
-  %span.content{:class => "#{red_green_yellow_grey_tag(@collection)}"}
+  %span.content{:class => "#{red_green_yellow_grey_tag(@collection)} round-corners"}
     -# link_to "#{@collection.id}", @collection
     = @debtor.name
     = "  --  "

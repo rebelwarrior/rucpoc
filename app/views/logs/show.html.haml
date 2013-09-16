@@ -1,1 +1,10 @@
-= render @logs
+- provide(:title, "Bitácora #show")
+-# = @log.collection_id
+= @log.debtor.name
+= @collection.amount_owed
+%p
+  = @log.content
+/= render @logs
+/ = render partial: 'log', :locals => { :log => @logs }
+%p
+  = link_to "delete", collection_log_path(@collection, @log), method: :delete, data: {confirm: "Confirme Borrar Bitácora: ¿Seguro?"}

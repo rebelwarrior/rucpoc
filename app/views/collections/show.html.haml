@@ -1,18 +1,34 @@
 - provide(:title, "Record de la Factura")
 %h1 Factura:
 .row
-  %aside.span4
+  %aside.span6
     %section
       %h5
         -if @debtor
+          %ol.microposts
+            = render partial: 'collection', :locals => { :collection => @collection }   
+            %span
+              %li.light-grey.round-top-corners  
+                %em Banco emitidor del cheque:
+                = "#{@collection.bounced_check_bank}"
+              %li.light-grey
+                %em Número del cheque devuelto: 
+                = " #{@collection.bounced_check_number}"
+              %li.light-grey
+                %em Notas: 
+                = " #{@collection.notes}"
+              %li{:class => "#{red_green_yellow_grey_tag(@collection)} round-bottom-corners"}
+                %em Pagada?
+                = " #{@collection.paid? ? 'si' : 'no'} "  
+          %em Deudor:            
           = link_to @debtor.name, @debtor
           ="   |  Persona Contacto: "
           = @debtor.contact_person
         /end  
-      %p
-        - if @debtor and @debtor.collections.any?
-          %h4
-            Facturas:
-          %ol.microposts
-            = render @collections #renders the partial
-        /end
+
+  %aside.span4
+    %section
+      =yield :logs_sidebar
+    %p
+      %a{:href => "#{url_for new_collection_log_path(@collection)}", :class => "btn btn-large btn-primary"}
+        Añadir Bitácora

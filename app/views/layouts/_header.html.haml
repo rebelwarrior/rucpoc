@@ -9,7 +9,7 @@
           -if signed_in?
             %li= link_to "Lista de Deudores", debtors_path
             %li= link_to "Deudor Nuevo", new_debtor_path
-            %li= link_to "Buscar Deutor", search_path
+            %li= link_to "Buscar Deudor", search_path
             %li= link_to "Log out", logout_path, method: "delete"    
             %li#fat-menu.dropdown
               %a{:href => '#', :class => 'dropdown-toggle', :'data-toggle' => 'dropdown' }

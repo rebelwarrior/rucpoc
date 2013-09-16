@@ -52,6 +52,7 @@ class CollectionsController < ApplicationController
   def show
     @user = current_user
     @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
+    @collection = Collection.find_by_id(params[:id])
     @collections = @debtor.collections
   end
   

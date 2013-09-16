@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130913135546) do
+ActiveRecord::Schema.define(version: 20130916183145) do
 
   create_table "collections", force: true do |t|
     t.string   "internal_invoice_number"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20130913135546) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "deleted?",      default: false
   end
 
   add_index "logs", ["collection_id"], name: "index_logs_on_collection_id"

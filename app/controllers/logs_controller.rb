@@ -34,21 +34,27 @@ class LogsController < ApplicationController
   def show
     @user = current_user
     @collection = Collection.find_by_id(params[:collection_id])
-    @logs = @collection.logs.all
+    # @logs = @collection.logs.all
+    @log = Log.find_by_id(params[:id])
     
   end
   
   def index
     @user = current_user
+    @collection = Collection.find_by_id(params[:collection_id])
+    @logs = @collection.logs.all
   end
   
   def destroy
     @user = current_user
     if current_user.admin?
       #Should only be certain users --> Supervisor users.
-      @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
-      @debtor.collections.logs.find(params[:id]).destroy
-      flash[:success] = "Bitacora borrada."
+      @collection = Collection.find_by_id(params[:collection_id])
+      log = Log.find_by_id(params[:id])
+      if log.destroy
+        # Should set flag to delete rather than actually delete
+        flash[:success] = "Bitacora borrada."
+      end
       redirect_to collection_url
     else
       flash.now![:error] = "Solo Administradores pueden borrar la bitacora."

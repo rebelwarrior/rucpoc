@@ -1,9 +1,10 @@
 - total = @color_code_proc.call(debtor)
-%li{:class => "#{total ? 'red' : 'green' }"}
+%li{:class => "#{total ? 'red' : 'green' } round-bottom-corners debtors"}
   -# Create a collect method to show total amount owed or paid.{:class => "#{debtor.collections.any? ? 'red' : 'green'}"}
   = "#{debtor.id}"
   = " "
-  = link_to debtor.name, debtor 
+  %b
+    = link_to debtor.name, debtor 
   = " - "
   = debtor.tel
   = debtor.email
