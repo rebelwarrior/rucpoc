@@ -4,7 +4,7 @@
 -#  = "#{find_log_user_email log} escribió en #{l log.created_at.in_time_zone("America/Puerto_Rico") }"#.to_formatted_s(:long_ordinal}"
 .accordion-group
   .accordion-heading
-    %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => '#accordion2', :href => "#collapse#{log.id}"}= "Bitácora #{log.id} de la factura #{log.collection_id}"
+    %a.accordion-toggle{:'data-toggle' => "collapse", :'data-parent' => '#accordion-log', :href => "#collapse#{log.id}"}= "Bitácora #{log.id} de la factura #{log.collection_id}"
     %div{ :id => "collapse#{log.id}", :class => "accordion-body collapse"}
       .accordion-inner
         = log.content
