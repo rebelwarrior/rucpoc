@@ -4,7 +4,7 @@
   = "#{debtor.id}"
   = " "
   %b
-    = link_to debtor.name, debtor 
+    = link_to "<i class='icon-folder-open'></i> #{debtor.name}".html_safe, debtor 
   = " - "
   = debtor.tel
   = debtor.email
@@ -12,5 +12,5 @@
   = " | #{total}"
   - if current_user.admin? #or current_user.supervisor?
     = " | "
-    = link_to "delete", debtor, method: :delete, data: {confirm: "Confirme Borrar Record: ¿Seguro?"}
+    = link_to "<i class='icon-trash'></i> delete".html_safe, debtor, method: :delete, data: {confirm: "Confirme Borrar Record: ¿Seguro?"}
   /

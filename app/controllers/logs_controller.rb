@@ -18,7 +18,7 @@ class LogsController < ApplicationController
     @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
     @collection = Collection.find_by_id(params[:collection_id])
     # @log = Log.new(log_params) 
-    params[:log].merge!(:user_id => current_user.id)
+    params[:log].merge!(:user_id => current_user.id) #this doesn't seem to be working!!
     @log = @collection.logs.build(log_params)
     # @collection.log.build(params[:log])
     if @log.save

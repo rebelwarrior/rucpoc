@@ -1,6 +1,7 @@
 %li{:class => "#{red_green_yellow_grey_tag(collection)} round-corners"}
   %span.content
     = link_to "#{collection.id}", collection
+    -# link_to "#{collection.amount_owed}", collection
     = collection.amount_owed
     = "  --  "
     = collection.paid? ? "Pagada  --" : ""
@@ -8,6 +9,8 @@
     = "Actulizada hace: #{time_ago_in_words(collection_last_updated(collection))}"
     - #method below doesn't work from debtor's path
     %br
+    = link_to "<i class='icon-eye-open'></i> Ver".html_safe, collection
+    = " | "
     = link_to "<i class='icon-edit'></i> Editar".html_safe, edit_collection_path(collection), method: :get  
     - if current_user.admin? or current_user.supervisor?
       = " | "

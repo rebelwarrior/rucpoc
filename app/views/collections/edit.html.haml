@@ -14,10 +14,11 @@
       =f.number_field :bounced_check_number
       =f.label :notes, "Notas"
       =f.text_field :notes
-      =f.label "Pagada?", {class: 'checkbox inline checkbox-for-paid'}
-      =f.check_box :paid?
-      =f.label "Pagada?" do
+      -if current_user.admin or current_user.supervisor
+        =f.label "Pagada?", {class: 'checkbox inline checkbox-for-paid'}
         =f.check_box :paid?
+      -#=f.label "Pagada?" do
+      -#  =f.check_box :paid?
       %br
       =f.submit "Editar Factura", class: "btn btn-large btn-primary"
 /

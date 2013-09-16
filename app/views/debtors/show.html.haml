@@ -16,7 +16,7 @@
         = "EIN: #{@debtor.employer_id_number}"
         %br
       %p
-        = link_to "Editar Record del Deudor", edit_debtor_path
+        = link_to "<i class='icon-edit'></i> Editar Record del Deudor".html_safe, edit_debtor_path
     %section
       %p
       - if @debtor.collections.any?
