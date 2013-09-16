@@ -15,4 +15,14 @@ module CollectionsHelper
     end
   end
     
+  def collection_last_updated(collection)
+    if collection.logs #inject == reduce
+      collection.logs.inject(collection.updated_at) do |acc, log|
+        acc = (acc > log.updated_at) ? acc : log.updated_at 
+      end
+    else
+      collection.updated_at
+    end
+  end
+    
 end
