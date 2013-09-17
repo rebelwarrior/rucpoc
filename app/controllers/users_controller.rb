@@ -9,14 +9,15 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params) 
-    if @user.save
-      sign_in @user
-      flash[:success] = "Bienvenido a RucPoc!"
-      redirect_to @user
-    else
-      render 'new'
-    end
+    # @user = User.new(user_params) 
+    puts "================== #{current_user.inspect}  =========================="
+    # if @user.save
+    #     sign_in @user
+    #     flash[:success] = "Bienvenido a RucPoc!"
+    #     redirect_to @user
+    #   else
+    #     render 'new'
+    #   end
   end
   
   def edit

@@ -36,7 +36,8 @@ class CollectionsController < ApplicationController
     # @collection = debtor.collections #.build(collection_params) #erroring out
     # @collection = Collection.new(collection_params) 
     @collection = Collection.find_by_id(params[:id])
-    if @collection.update_attributes(collection_params)
+    # && @collection.update_attribute(:paid?, true)
+    if @collection.update_attributes(collection_params) && @collection.valid?
       flash[:success] = "Factura Actualizada"
       redirect_to @collection
     else
@@ -74,11 +75,11 @@ class CollectionsController < ApplicationController
     def collection_params
       if signed_in?
         if current_user.admin or current_user.supervisor
-          params.require(:collection).permit(:amount_owed, :bounced_check_bank, :bouncec_check_number, 
-                                            :notes, :internal_invoice_number, :paid?)
+          params.require(:collection).permit(:amount_owed, :bounced_check_bank, :bounced_check_number, 
+                                            :notes, :internal_invoice_number, :paid)
         else
           params.require(:collection).permit(:amount_owed, :bounced_check_bank, 
-                                            :bouncec_check_number, :notes, :internal_invoice_number)
+                                            :bounced_check_number, :notes, :internal_invoice_number)
         end
       else
         redirect_to login_path

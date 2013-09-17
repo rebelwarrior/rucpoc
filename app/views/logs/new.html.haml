@@ -19,6 +19,7 @@
     =# render 'shared/error_messages'
     =f.label :content, "Notas"
     =f.text_area :content
+    =f.hidden_field :user_id, :user_id => @user.id
     -#hidden fied /w current user
     =f.submit "Crear Bitácora", class: "btn btn-large btn-primary"
 /end
