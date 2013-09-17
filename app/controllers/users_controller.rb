@@ -9,15 +9,15 @@ class UsersController < ApplicationController
   end
   
   def create
-    # @user = User.new(user_params) 
+    @user = User.new(user_params) 
     puts "================== #{current_user.inspect}  =========================="
-    # if @user.save
-    #     sign_in @user
-    #     flash[:success] = "Bienvenido a RucPoc!"
-    #     redirect_to @user
-    #   else
-    #     render 'new'
-    #   end
+    if @user.save
+          sign_in @user
+          flash[:success] = "Bienvenido a RucPoc!"
+          redirect_to @user
+        else
+          render 'new'
+        end
   end
   
   def edit
@@ -52,7 +52,9 @@ class UsersController < ApplicationController
   
   private
     def user_params
-      if current_user.admin
+      if current_user.nil? or current_user.blank?
+        params.require(:user).permit(:email, :password, :password_confirmation)
+      elsif current_user.admin
         params.require(:user).permit(:email, :password, :password_confirmation, :supervisor)
       elsif current_user.supervisor
         params.require(:user).permit(:email, :password, :password_confirmation, :supervisor)
