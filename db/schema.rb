@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130917170641) do
+ActiveRecord::Schema.define(version: 20130917181716) do
 
   create_table "collections", force: true do |t|
     t.string   "internal_invoice_number"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20130917170641) do
     t.string   "bounced_check_bank"
     t.string   "bounced_check_number"
     t.integer  "debtor_id"
-    t.boolean  "being_processed?",                                         default: false
+    t.boolean  "being_processed",                                          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

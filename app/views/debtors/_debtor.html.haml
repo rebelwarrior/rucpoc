@@ -9,7 +9,7 @@
   = debtor.tel
   = debtor.email
   = link_to debtor.employer_id_number, debtor 
-  = " | #{total}"
+  = " | $#{total}"
   - if current_user.admin? #or current_user.supervisor?
     = " | "
     = link_to "<i class='icon-trash'></i> delete".html_safe, debtor, method: :delete, data: {confirm: "Confirme Borrar Record: ¿Seguro?"}

@@ -13,7 +13,7 @@
         = f.password_field :password_confirmation
       -if current_user.admin or current_user.supervisor
         = f.check_box :supervisor 
-        = f.label :supervisor, :class => "checkbox inline" 
+        = f.label :supervisor, :class => "checkbox inline text-warning" 
         %br
         %br 
       = f.submit "Grabar Cambios", :class => "btn btn-large btn-primary"
