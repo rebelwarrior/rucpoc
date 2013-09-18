@@ -231,8 +231,10 @@ DEPENDENCIES
   localeapp
   net-scp
   net-ssh
+  pg
   pry
   rails (= 4.0.0)
+  rails_12factor
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc

@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 #ruby=jruby-head
 #Magic JRUBY comment
+ruby '1.9.3', :engine => 'jruby', :engine_version => '1.7.5.dev'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
@@ -19,8 +20,10 @@ platforms :jruby do
 end
 
 platforms :ruby do
-  gem 'sqlite'
+  gem 'sqlite', group: :development
   gem 'therubyracer'
+  gem 'rails_12factor'
+  gem 'pg', group: :production
 end
 
 
