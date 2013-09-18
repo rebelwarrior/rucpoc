@@ -5,15 +5,15 @@ require File.expand_path('../config/application', __FILE__)
 
 RucPoc1::Application.load_tasks
 
-if RUBY_PLATFORM['java']
-  require 'warbler'
-  Warbler::Task.new
-  begin
-    require 'torquebox-rake-support'
-  rescue LoadError => ex
-    puts "Failed to load the TorqueBox rake gem (torquebox-rake-support). Make sure it is available in your environment."
-  end
-end
+# if RUBY_PLATFORM['java']
+#   require 'warbler'
+#   Warbler::Task.new
+#   begin
+#     require 'torquebox-rake-support'
+#   rescue LoadError => ex
+#     puts "Failed to load the TorqueBox rake gem (torquebox-rake-support). Make sure it is available in your environment."
+#   end
+# end
 
 # namespace :csv do
 #   desc "Import data from CSV to database for populating db."

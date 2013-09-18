@@ -17,6 +17,7 @@ platforms :jruby do
   gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyrhino'
+  gem 'puma'
 end
 
 platforms :ruby do
