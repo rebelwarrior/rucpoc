@@ -52,6 +52,16 @@ class UsersController < ApplicationController
   
   private
     def user_params
+      # permitted_array = [:email, :password, :password_confirmation]
+      # case 
+      # when current_user.blank?
+      # when current_user.admin
+      #   permitted_array << :supervisor <<:admin    
+      # when current_user.supervisor 
+      #   permitted_array << :supervisor
+      # end
+      # params.require(:user).permit(*permitted_array)
+      
       if current_user.nil? or current_user.blank?
         params.require(:user).permit(:email, :password, :password_confirmation)
       elsif current_user.admin
