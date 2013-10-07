@@ -9,6 +9,8 @@
       .accordion-inner
         = log.content
         .light-grey
-          = "#{log.user.email} escribió en #{l log.created_at.in_time_zone("America/Puerto_Rico") }"#.to_formatted_s(:long_ordinal}"
+          = "#{log.user.email} escribió en #{l log.created_at.in_time_zone("America/Puerto_Rico") }".html_safe
+          
+-#.to_formatted_s(:long_ordinal}"
           
 -# to have it stay open have "accordion-body collapse in"

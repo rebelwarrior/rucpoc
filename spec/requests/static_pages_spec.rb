@@ -14,6 +14,7 @@ describe "StaticPages" do
     it 'should have the correct title' do
       visit '/help'
       expect(page).to have_title("Como Usar RucPoc")
+    end
   end
   
   

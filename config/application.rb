@@ -26,7 +26,7 @@ module RucPoc1
     # config.i18n.default_locale = :de
     
     # For Bootstrap Sass
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+    config.assets.precompile = config.assets.precompile + %w(*.png *.jpg *.jpeg *.gif)
   end
 
   # class ActiveSupport::MessageVerifier::InvalidMessage < StandardError; end

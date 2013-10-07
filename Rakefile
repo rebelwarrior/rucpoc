@@ -6,6 +6,7 @@ require File.expand_path('../config/application', __FILE__)
 RucPoc1::Application.load_tasks
 
 # if RUBY_PLATFORM['java']
+# rake assets:precompile
 #   require 'warbler'
 #   Warbler::Task.new
 #   begin
