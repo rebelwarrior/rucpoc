@@ -37,6 +37,7 @@ platforms :ruby do
     if heroku
       gem 'rails_12factor' 
       gem 'unicorn'
+      gem 'haml-rails'
     end
   end
 end
