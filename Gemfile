@@ -36,6 +36,7 @@ platforms :ruby do
     gem 'pg'
     if heroku
       gem 'rails_12factor' 
+      gem 'unicorn'
     end
   end
 end
