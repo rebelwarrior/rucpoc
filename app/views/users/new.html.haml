@@ -1,3 +1,4 @@
+-#coding: utf-8
 - provide(:title, "Crear Nuevo Usuario")
 %h1 Crear Usuario Nuevo
 
@@ -9,7 +10,7 @@
       =f.email_field :email
       =f.label :password
       =f.text_field :password
-      =f.label :password_confirmation, "Confirmación"
+      =f.label :password_confirmation, "Confirmar Password"
       =f.password_field :password_confirmation
       =f.submit "Crear Nuevo Usuario", class: "btn btn-large btn-primary"
   /  
