@@ -11,19 +11,19 @@
   %div{:class => "span6 offset3"}
     =form_for(@debtor) do |f|
       = render partial: 'shared/error_messages', :locals => { :object => f.object }
-      =f.label :name
+      =f.label :name, "Nombre"
       =f.text_field :name
-      =f.label :email
+      =f.label :email, "Email"
       =f.email_field :email
-      =f.label :tel
+      =f.label :tel, "Teléfono"
       =f.telephone_field :tel
-      =f.label :address, "Direccioón Postal"
+      =f.label :address, "Dirección Postal"
       =f.text_field :address
       =f.label :location, "Dirección Física"
       =f.text_field :location
-      =f.label :contact_person
+      =f.label :contact_person, "Persona Contácto"
       =f.text_field :contact_person
-      =f.label :employer_id_number
+      =f.label :employer_id_number, "Numbero de SS Patronal"
       =f.text_field :employer_id_number
       =f.submit "Crear Record de Deudor Nuevo", class: "btn btn-large btn-primary"
   /end  
