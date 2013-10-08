@@ -1,8 +1,11 @@
 %li{:class => "#{red_green_yellow_grey_tag(collection)} round-corners"}
   %span.content
     = link_to "#{collection.id}", collection
-    -# link_to "#{collection.amount_owed}", collection
-    = collection.amount_owed
+    -# link_to "$#{collection.amount_owed}", collection
+    - unless collection.paid?
+      = "<strong>$ #{collection.amount_owed}</strong>".html_safe
+    - else
+      = "<s>$ #{collection.amount_owed}</s>".html_safe
     = "  --  "
     = collection.paid? ? "Pagada  --" : ""
     = collection.being_processed? ? "En Proceso  --" : ""
