@@ -3,7 +3,11 @@
 
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
-  config.jar_name = "RucPoc1"
+  config.jar_name = "version1"
+  config.features = %w(executable)
+  config.excludes = FileList["**/*/*.box"]
+  config.includes = FileList["Rakefile"]
+  # config.webxml.rails.env = 'production'
   
   
   # Features: additional options controlling how the jar is built.
@@ -14,7 +18,7 @@ Warbler::Config.new do |config|
   # config.features = %w(gemjar)
 
   # Application directories to be included in the webapp.
-  # config.dirs = %w(app config db lib log script vendor tmp)
+  config.dirs = %w(app config db lib log vendor tmp bin public)
 
   # Additional files/directories to include, above those in config.dirs
   # config.includes = FileList["db"]
@@ -45,7 +49,7 @@ Warbler::Config.new do |config|
 
   # An array of Bundler groups to avoid including in the war file.
   # Defaults to ["development", "test", "assets"].
-  # config.bundle_without = []
+  config.bundle_without = []
 
   # Other gems to be included. If you don't use Bundler or a gemspec
   # file, you need to tell Warbler which gems your application needs
@@ -130,7 +134,7 @@ Warbler::Config.new do |config|
   # config.webxml.booter = :rails
 
   # Set JRuby to run in 1.9 mode.
-  config.webxml.jruby.compat.version = "1.9"
+  # config.webxml.jruby.compat.version = "2.0" #"1.9"
 
   # When using the :rack booter, "Rackup" script to use.
   # - For 'rackup.path', the value points to the location of the rackup
@@ -151,7 +155,7 @@ Warbler::Config.new do |config|
   # If you're using threadsafe! mode, you probably don't want to set these values,
   # since 1 runtime(default for threadsafe mode) will be enough.
   # config.webxml.jruby.min.runtimes = 2
-  config.webxml.jruby.max.runtimes = 1
+  # config.webxml.jruby.max.runtimes = 1
 
   # JNDI data source name
   # config.webxml.jndi = 'jdbc/rails'
