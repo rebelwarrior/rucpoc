@@ -20,11 +20,11 @@ platforms :jruby do
   end
   group :development do
     gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0.beta2'
+    gem 'puma', '~> 2.6.0'
   end
   gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
   gem 'therubyrhino'
   # Server
-  gem 'puma', '~> 2.6.0'
 end
 
 platforms :ruby do
@@ -46,7 +46,7 @@ end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.3.2.2'
 gem 'haml-rails'
 
 # Use Uglifier as compressor for JavaScript assets
@@ -84,7 +84,7 @@ group :development, :test do
   # Remember to move /script/cucumber to /bin/cucumber
   gem 'database_cleaner' #, github: 'bmabey/database_cleaner' #This won't work w/ warbler. 
   gem 'rspec-rails'
-  # gem 'guard-rspec'
+  gem 'guard-rspec'
   gem 'haml-rails'
   # gem 'jasminerice' # For CoffeeScript Testing.
   # gem 'guard-jasmine'
@@ -105,7 +105,7 @@ end
 group :deploy do
   platforms :jruby do
     unless heroku
-      # gem 'warbler', '~> 1.4.0.beta1',:git => "https://github.com/jruby/warbler.git", :require => false
+      gem 'warbler', '~> 1.4.0.beta1',:git => "https://github.com/jruby/warbler.git", :require => false
       # gem 'net-ssh', :require => "net/ssh"
       # gem 'net-scp', :require => "net/scp" 
       # gem 'torquebox-remote-deployer'

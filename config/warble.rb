@@ -3,10 +3,13 @@
 
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
-  config.jar_name = "version1"
-  config.features = %w(executable)
+  config.jar_name = "rucpocver#{Time.now.to_i}"
+  # config.jar_extension = "###{Time.now.to_i}.war"
+  # The double ## does versioning in Tomcat but kills the war in windows
+  # config.features = %w(executable)
   config.excludes = FileList["**/*/*.box"]
   config.includes = FileList["Rakefile"]
+  config.webserver = 'jenkins-ci.winstone'
   # config.webxml.rails.env = 'production'
   
   

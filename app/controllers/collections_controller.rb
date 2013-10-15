@@ -32,6 +32,7 @@ class CollectionsController < ApplicationController
   
   def update
     @user = current_user
+    redirect_to debtors_path if cookies[:current_debtor_id].nil? or params[:id].nil?
     debtor = Debtor.find_by_id(cookies[:current_debtor_id])
     # @collection = debtor.collections #.build(collection_params) #erroring out
     # @collection = Collection.new(collection_params) 

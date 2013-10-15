@@ -7,10 +7,12 @@ class LogsController < ApplicationController
   def new
     @user = current_user
     redirect_to debtors_path if cookies[:current_debtor_id].nil?
-    @collection = Collection.find_by_id(params[:collection_id])
-    @debtor = Debtor.find_by_id(@collection.debtor_id)
-    @log = Log.new(:collection => @collection, :user_id => @user.id)
-    # @log = @collection.logs.build
+    unless params[:collection_id].nil?   
+      @collection = Collection.find_by_id(params[:collection_id])
+      @debtor = Debtor.find_by_id(@collection.debtor_id)
+      @log = Log.new(:collection => @collection, :user_id => @user.id)
+      # @log = @collection.logs.build
+    end
   end
   
   def create

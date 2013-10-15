@@ -1,3 +1,4 @@
 // Set the correct sprite paths
-$iconSpritePath: image-url('glyphicons-halflings.png');
-$iconWhiteSpritePath: image-url('glyphicons-halflings-white.png');
+// asset_path is underscored in Ruby hyphenated in Saas why?
+//$iconSpritePath: asset-path('glyphicons-halflings.png');
+//$iconWhiteSpritePath: asset-path('glyphicons-halflings-white.png');
