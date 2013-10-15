@@ -1,5 +1,5 @@
-- total = @color_code_proc.call(debtor)
-%li{:class => "#{total ? 'red' : 'green' } round-bottom-corners debtors"}
+- (total = @color_code_proc.call(debtor)) unless debtor.nil?
+%li{:class => "#{total.zero? ? 'green' : 'red' } round-bottom-corners debtors"}
   -# Create a collect method to show total amount owed or paid.{:class => "#{debtor.collections.any? ? 'red' : 'green'}"}
   = "#{debtor.id}"
   = " "

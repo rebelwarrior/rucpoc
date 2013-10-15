@@ -39,6 +39,8 @@ platforms :ruby do
       gem 'rails_12factor' 
       # Use unicorn as the app server
       gem 'unicorn' 
+      # Trying Puma as server
+      gem 'puma', '~> 2.6.0'
     end
   end
 end
