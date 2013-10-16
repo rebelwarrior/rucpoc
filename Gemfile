@@ -32,15 +32,15 @@ platforms :ruby do
     gem 'sqlite3'
   end
   group :production do
-    gem 'therubyracer'
-    gem 'pg'
     if heroku
+      gem 'therubyracer'
+      gem 'pg'
       # 12 Factor App for Log Stream
       gem 'rails_12factor' 
       # Use unicorn as the app server
       gem 'unicorn' 
-      # Trying Puma as server
-      gem 'puma', '~> 2.6.0'
+      # Trying Puma as server #is this needed for HEROKU??
+      # gem 'puma', '~> 2.6.0'
     end
   end
 end
