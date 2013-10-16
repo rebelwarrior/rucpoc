@@ -33,14 +33,14 @@ platforms :ruby do
   end
   group :production do
     if heroku
-      gem 'therubyracer'
+      gem 'therubyracer', '0.12.0'
       gem 'pg'
       # 12 Factor App for Log Stream
       gem 'rails_12factor' 
       # Use unicorn as the app server
       gem 'unicorn' 
       # Trying Puma as server #is this needed for HEROKU??
-      # gem 'puma', '~> 2.6.0'
+      gem 'puma', '~> 2.6.0'
     end
   end
 end
