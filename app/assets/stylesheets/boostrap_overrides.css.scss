@@ -2,3 +2,7 @@
 // asset_path is underscored in Ruby hyphenated in Saas why?
 //$iconSpritePath: asset-path('glyphicons-halflings.png');
 //$iconWhiteSpritePath: asset-path('glyphicons-halflings-white.png');
+//
+//[class^="icon-"],[class*=" icon-"] {
+//<%= "background-image: url(#{asset_path 'glyphicons-halflings.png'});};" %> */
+

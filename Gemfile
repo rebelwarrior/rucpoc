@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-heroku = false
+heroku = true
 if heroku 
   ruby '2.0.0' 
 else
@@ -111,9 +111,10 @@ group :deploy do
       # gem 'net-ssh', :require => "net/ssh"
       # gem 'net-scp', :require => "net/scp" 
       # gem 'torquebox-remote-deployer'
+      gem 'torquebox-rake-support'
+      gem 'torquebox'
     end
   end
 end
 
 # For Warbler changes to config/application.rb and config/environtments/production.rb
-# Testing bootstrap_overide.css.scss

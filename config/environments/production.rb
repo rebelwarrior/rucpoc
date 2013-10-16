@@ -40,7 +40,7 @@ RucPoc1::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false # Changed for Warbler to false
+  config.force_ssl = true # Changed for Warbler to false
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
@@ -79,5 +79,5 @@ RucPoc1::Application.configure do
   config.log_formatter = ::Logger::Formatter.new
   
   # For Warbler added by David Acevedo (also ssl)
-  config.assets.precompile = config.assets.precompile + %w( *.js *.scss *.coffee *.css )
+  # config.assets.precompile = config.assets.precompile + %w( *.js *.scss *.coffee *.css )
 end

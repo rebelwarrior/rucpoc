@@ -1,0 +1,11 @@
+/* BootStrap Glyphicons Overwrite */
+
+/*
+[class^="icon-"],[class*=" icon-"] {
+background-image: url(<%= asset_path 'glyphicons-halflings-white.png' %>);
+};
+*/
+
+//[class^="icon-"],[class*=" icon-"] {
+//background-image: asset-url('glyphicons-halflings-white.png');
+//};
