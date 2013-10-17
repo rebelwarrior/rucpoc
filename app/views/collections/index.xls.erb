@@ -33,7 +33,7 @@
         <Cell><Data ss:Type="String"><%= factura.being_processed %></Data></Cell>
         <Cell><Data ss:Type="String"><%= factura.created_at %></Data></Cell>
         <Cell><Data ss:Type="String"><%= factura.updated_at %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= Collection.find_debtor_name(factura.debtor_id) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.find_debtor_name(factura.debtor_id) %></Data></Cell>
       </Row>
     <% end %>
     </Table>

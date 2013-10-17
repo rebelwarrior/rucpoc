@@ -13,7 +13,7 @@ class Collection < ActiveRecord::Base
   validates :bounced_check_number, format: { with: VALID_INT_NUM_REGEX, 
             message: "Debe ser un número."}
   
-  def self.find_debtor_name(debtor_id)
+  def find_debtor_name(debtor_id)
     debtor = Debtor.find_by_id(debtor_id)
     debtor.nil? ? 'NULL' : debtor.name
   end
@@ -24,7 +24,7 @@ class Collection < ActiveRecord::Base
       all.each do |collection|
         # debtor = Debtor.find_by_id(collection.attributes["debtor_id"])
         # debtor_name = debtor.nil? ? 'NULL' : debtor.name
-        debtor_name = find_debtor_name(collection.attributes["debtor_id"])
+        debtor_name = collection.find_debtor_name(collection.attributes["debtor_id"])
         # csv << collection.attributes.values_at(*column_names)
         csv << (collection.attributes.values_at(*column_names) << debtor_name)
       end
