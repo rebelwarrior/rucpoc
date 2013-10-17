@@ -12,21 +12,24 @@ class Collection < ActiveRecord::Base
             message: "Debe ser un número."}
   validates :bounced_check_number, format: { with: VALID_INT_NUM_REGEX, 
             message: "Debe ser un número."}
+  
+  def self.find_debtor_name(debtor_id)
+    debtor = Debtor.find_by_id(debtor_id)
+    debtor.nil? ? 'NULL' : debtor.name
+  end
    
-   def self.to_csv(options = {})
-     CSV.generate(options) do |csv|
-       csv << column_names
-       all.each do |collection|
-         debtor = Debtor.find_by_id(collection.attributes["debtor_id"])
-         debtor_name = debtor.nil? ? 'NULL' : debtor.name
-         # if debtor.nil?
-           # csv << collection.attributes.values_at(*column_names)
-         # else 
-           csv << (collection.attributes.values_at(*column_names) << debtor_name)
-         # end
-       end
-     end
-   end
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << column_names
+      all.each do |collection|
+        # debtor = Debtor.find_by_id(collection.attributes["debtor_id"])
+        # debtor_name = debtor.nil? ? 'NULL' : debtor.name
+        debtor_name = find_debtor_name(collection.attributes["debtor_id"])
+        # csv << collection.attributes.values_at(*column_names)
+        csv << (collection.attributes.values_at(*column_names) << debtor_name)
+      end
+    end
+  end
    
   # def self.import(file)
   #   CSV.foreach(file.path, headers: true) do |row|

@@ -54,6 +54,7 @@ class CollectionsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { render text: @collections_all.to_csv }
+      format.xls #{ send_date @collections_all.to_csv(col_sep: "\t") }
     end
   end
   

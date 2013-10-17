@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">internal_invoice_number</Data></Cell>
+        <Cell><Data ss:Type="String">amount_owed</Data></Cell>
+        <Cell><Data ss:Type="String">paid</Data></Cell>
+        <Cell><Data ss:Type="String">notes</Data></Cell>
+        <Cell><Data ss:Type="String">bounced_check_bank</Data></Cell>
+        <Cell><Data ss:Type="String">bounced_check_number</Data></Cell>
+        <Cell><Data ss:Type="String">debtor_id</Data></Cell>
+        <Cell><Data ss:Type="String">being_processed</Data></Cell>
+        <Cell><Data ss:Type="String">created_at</Data></Cell>
+        <Cell><Data ss:Type="String">updated_at</Data></Cell>
+        <Cell><Data ss:Type="String">debtor_name</Data></Cell>
+      </Row>
+    <% @collections_all.each do |factura| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= factura.id %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= factura.internal_invoice_number %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= factura.amount_owed %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.paid %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.notes %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.bounced_check_bank %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= factura.bounced_check_number %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= factura.debtor_id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.being_processed %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.created_at %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.updated_at %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= Collection.find_debtor_name(factura.debtor_id) %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
