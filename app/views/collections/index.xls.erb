@@ -15,10 +15,10 @@
         <Cell><Data ss:Type="String">bounced_check_bank</Data></Cell>
         <Cell><Data ss:Type="String">bounced_check_number</Data></Cell>
         <Cell><Data ss:Type="String">debtor_id</Data></Cell>
+        <Cell><Data ss:Type="String">debtor_name</Data></Cell>
         <Cell><Data ss:Type="String">being_processed</Data></Cell>
         <Cell><Data ss:Type="String">created_at</Data></Cell>
         <Cell><Data ss:Type="String">updated_at</Data></Cell>
-        <Cell><Data ss:Type="String">debtor_name</Data></Cell>
       </Row>
     <% @collections_all.each do |factura| %>
       <Row>
@@ -30,10 +30,10 @@
         <Cell><Data ss:Type="String"><%= factura.bounced_check_bank %></Data></Cell>
         <Cell><Data ss:Type="Number"><%= factura.bounced_check_number %></Data></Cell>
         <Cell><Data ss:Type="Number"><%= factura.debtor_id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= factura.find_debtor_name(factura.debtor_id) %></Data></Cell>
         <Cell><Data ss:Type="String"><%= factura.being_processed %></Data></Cell>
         <Cell><Data ss:Type="String"><%= factura.created_at %></Data></Cell>
         <Cell><Data ss:Type="String"><%= factura.updated_at %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= factura.find_debtor_name(factura.debtor_id) %></Data></Cell>
       </Row>
     <% end %>
     </Table>

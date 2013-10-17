@@ -20,17 +20,15 @@ class Collection < ActiveRecord::Base
    
   def self.to_csv(options = {})
     CSV.generate(options) do |csv|
-      csv << column_names
+      csv << column_names + [:debtor_name]
       all.each do |collection|
-        # debtor = Debtor.find_by_id(collection.attributes["debtor_id"])
-        # debtor_name = debtor.nil? ? 'NULL' : debtor.name
         debtor_name = collection.find_debtor_name(collection.attributes["debtor_id"])
         # csv << collection.attributes.values_at(*column_names)
         csv << (collection.attributes.values_at(*column_names) << debtor_name)
       end
     end
   end
-   
+  
   # def self.import(file)
   #   CSV.foreach(file.path, headers: true) do |row|
   #     row_hash = row.to_hash

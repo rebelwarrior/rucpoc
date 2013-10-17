@@ -4,5 +4,5 @@
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
 
-# For exporting xls
+# For exporting Excel documents:
 Mime::Type.register_alias "application/xls", :xls
