@@ -17,7 +17,13 @@ class Collection < ActiveRecord::Base
      CSV.generate(options) do |csv|
        csv << column_names
        all.each do |collection|
-         csv << collection.attributes.values_at(*column_names)
+         debtor = Debtor.find_by_id(collection.attributes["debtor_id"])
+         debtor_name = debtor.nil? ? 'NULL' : debtor.name
+         # if debtor.nil?
+           # csv << collection.attributes.values_at(*column_names)
+         # else 
+           csv << (collection.attributes.values_at(*column_names) << debtor_name)
+         # end
        end
      end
    end
