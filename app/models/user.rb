@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   before_create :create_remember_token
   # validates(:email, presence: true)
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_JCA_EMAIL_REGEX = /\A[\w+\-.]+@jca\.pr\.gov/i
   validates(:email, presence: true, format: { with: VALID_EMAIL_REGEX,
             message: "El email debe ser valido."}, uniqueness: { case_sensitive: false})
   validates(:password, length: { minimum: 6})

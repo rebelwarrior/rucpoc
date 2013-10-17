@@ -12,6 +12,26 @@ class Collection < ActiveRecord::Base
             message: "Debe ser un número."}
   validates :bounced_check_number, format: { with: VALID_INT_NUM_REGEX, 
             message: "Debe ser un número."}
+   
+   def self.to_csv(options = {})
+     CSV.generate(options) do |csv|
+       csv << column_names
+       all.each do |collection|
+         csv << collection.attributes.values_at(*column_names)
+       end
+     end
+   end
+   
+  # def self.import(file)
+  #   CSV.foreach(file.path, headers: true) do |row|
+  #     row_hash = row.to_hash
+  #     #Analyze row_hash for correct contents.
+  #     debtor = Debtor.find_by_id(row_hash[:debtor_id]) 
+  #     collection.attributes = row_hash.slice(*accessible_attributes)
+  #     # .save!
+  #     Collection.create! collection.attributes
+  #   end
+  # end
   
 end
 

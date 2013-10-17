@@ -1,0 +1,39 @@
+%h1 Importar CSV
+
+%p
+  A CSV or Excel file can be used to import records. 
+  The first row should be the column name. The following columns are allowed.
+
+/ <ul>
+/   <% Product.columns.each do |column| %>
+/     <% if column.name.in? ["id", *Product.accessible_attributes] %>
+/       <li>
+/         <strong><%= column.name %></strong> -
+/         <%= column.type.to_s.titleize %> type
+/       </li>
+/     <% end %>
+/   <% end %>
+/ </ul>
+
+-# form_tag import_path, multipart:true do
+-# file_field_tag :file
+-# submit_tag "Import"
+
+
+= form_for @import do |f| 
+  - if @import.errors.any? 
+    #error_explanation
+      %h3
+        = pluralize(@import.errors.count, "error")
+        = "prohibited this import from completing:"
+      %ul
+        - @import.errors.full_messages.each do |msg|
+          %li
+            = msg
+        /
+  /
+  .field
+    = f.file_field :file
+  .buttons
+    = f.submit "Import" 
+/

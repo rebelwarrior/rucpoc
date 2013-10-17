@@ -49,6 +49,12 @@ class CollectionsController < ApplicationController
   
   def index
     @user = current_user
+    @collections_all = Collection.all
+    @debtor = Debtor.find_by_id(cookies[:current_debtor_id])
+    respond_to do |format|
+      format.html
+      format.csv { render text: @collections_all.to_csv }
+    end
   end
   
   def show

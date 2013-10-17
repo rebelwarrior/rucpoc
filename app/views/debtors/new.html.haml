@@ -28,3 +28,7 @@
       =f.text_field :employer_id_number
       =f.submit "Crear Record de Deudor Nuevo", class: "btn btn-large btn-primary"
   /end  
+-if @user.admin?
+  .row
+    %a{:href => "#{'url_for import_path'}", :class => "btn btn-large btn-primary"}
+        Para Importar CSV

@@ -1,5 +1,6 @@
+-#coding: utf-8
 - provide(:title, "Facturas")
-%h1 Factura:
+%h1 Facturas:
 .row
   %aside.span6
     %section
@@ -8,14 +9,17 @@
           = @debtor.name
           ="   |  Persona Contacto: "
           = @debtor.contact_person
+          -if @debtor and @debtor.collections.any?
+            %p
+              %h3
+                = "Facturas de #{@debtor.name}:"
+              %ol.microposts
+                - @debtor.collections.each do |individual_collection|
+                  = render partial: 'collection', :locals => { :collection => individual_collection }
+          /end
         /end  
-      %p
-        - if @debtor and @debtor.collections.any?
-          %h3
-            Facturas:
-          %ol.microposts
-            = render @collections #renders the partial
-        /end
   %aside.span4
     %section
-      =yield :logs_sidebar      
+      - if @debtor and @debtor.collections.any?
+        = yield :logs_sidebar  
+     

@@ -112,8 +112,8 @@ group :deploy do
       # gem 'net-ssh', :require => "net/ssh"
       # gem 'net-scp', :require => "net/scp" 
       # gem 'torquebox-remote-deployer'
-      gem 'torquebox-rake-support'
-      gem 'torquebox'
+      # gem 'torquebox-rake-support'
+      # gem 'torquebox'
     end
   end
 end

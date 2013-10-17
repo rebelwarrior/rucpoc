@@ -39,10 +39,12 @@ class DebtorsController < ApplicationController
     @debtors = params[:search].nil? ? Debtor.paginate(page: params[:page]) : Debtor.search(params[:search])
     #map is an alias of collect, reduce of inject and select of find_all
     @color_code_proc = ->(debtor){debtor.collections.collect do |invoice|
-        invoice.amount_owed unless invoice.paid?
+        # invoice.amount_owed unless invoice.paid?
+        #(invoice.paid? || invoice.being_processed?) ? 0 : invoice.amount_owed
+        (invoice.paid?) ? 0 : invoice.amount_owed
       end.reduce(0) do |total, amount|
-        # total = total.nil? ? 0 : total
-        amount = amount.nil? ? 0 : amount
+        # total = total.nil? ? 0 : total #created a bug
+        # amount = amount.nil? ? 0 : amount
         amount + total
       end }
   end
