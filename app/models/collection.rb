@@ -39,6 +39,15 @@ class Collection < ActiveRecord::Base
   #     Collection.create! collection.attributes
   #   end
   # end
+  private
+    def self.to_plain_csv(options = {}) #For portability of code only.
+      CSV.generate(options) do |csv|
+        csv << column_names
+        all.each do |collection|
+          csv << collection.attributes.values_at(*column_names)
+        end
+      end
+    end
   
 end
 

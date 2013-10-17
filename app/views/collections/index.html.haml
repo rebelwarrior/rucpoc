@@ -5,7 +5,7 @@
   %aside.span6
     %section
       %h1
-        -if @debtor
+        -if @debtor and !@user.admin?
           = @debtor.name
           ="   |  Persona Contacto: "
           = @debtor.contact_person
@@ -17,6 +17,11 @@
                 - @debtor.collections.each do |individual_collection|
                   = render partial: 'collection', :locals => { :collection => individual_collection }
           /end
+        -elsif @user.admin?
+          %h3 
+            Admin
+          %p
+            Importar csv
         -else 
           %h3
             Tiene que selecionar un deudor primero para ver sus facturas.  
