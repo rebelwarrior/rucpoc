@@ -19,11 +19,10 @@ class Debtor < ActiveRecord::Base
      message: "El Número de Seguro Social Patronal debe de ser válido: 'xx-xxxxxxx' o en blanco." }
 
   
-  def self.search(search_term)
-    # Must bench mark below code for easier EIN lookup.
-    ein_regex = /\A([0-9]{2})([0-9]{7})\z/ 
-    
-    if search_term =~ ein_regex
+  def self.search(search_term)  
+    if search_term =~ /\A[0-9]{9}\z/
+      #Consider using this regex below as both regex
+      ein_regex = /\A([0-9]{2})-?([0-9]{7})\z/
       search_term = search_term.match(ein_regex).captures.join('-')
       result = where('employer_id_number LIKE ?', "%#{search_term}%")
     elsif search_term
