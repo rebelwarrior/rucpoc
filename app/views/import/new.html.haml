@@ -20,20 +20,25 @@
 -# submit_tag "Import"
 
 
-= form_for @import do |f| 
-  - if @import.errors.any? 
-    #error_explanation
-      %h3
-        = pluralize(@import.errors.count, "error")
-        = "prohibited this import from completing:"
-      %ul
-        - @import.errors.full_messages.each do |msg|
-          %li
-            = msg
-        /
-  /
-  .field
-    = f.file_field :file
-  .buttons
-    = f.submit "Import" 
+/ = form_for @import do |f| 
+/   - if @import.errors.any? 
+/     #error_explanation
+/       %h3
+/         = pluralize(@import.errors.count, "error")
+/         = "prohibited this import from completing:"
+/       %ul
+/         - @import.errors.full_messages.each do |msg|
+/           %li
+/             = msg
+/         /
+/   /
+/   .field
+/     = f.file_field :file
+/   .buttons
+/     = f.submit "Import" 
+/ /
+
+= form_tag import_path, multipart: true do
+  = file_field_tag : file
+  = submit_tag "Importar"
 /

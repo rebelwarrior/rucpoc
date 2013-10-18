@@ -1,6 +1,9 @@
 class ImportController < ApplicationController
+  before_action :signed_in_user
   def new
-    @product_import = Import.new
+    testy = Struct.new(:errors, :each, :yield).new([0], [*1..9].each, "hi")
+    testy.errors = [0]
+    @product_import = ""#Import.new
   end
 
   def create

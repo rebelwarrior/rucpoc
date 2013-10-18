@@ -9,14 +9,14 @@ RucPoc1::Application.routes.draw do
   resources :collections do
     resources :logs, only: [:new, :create, :index, :show, :destroy]
   end
-  resources :debtors
+  resources :debtors 
   # resources :logs, only: [:new, :create, :destroy]
   root 'static_pages#home'
-  match '/signup',  to: 'users#new',          via: 'get'
-  match '/login',   to: 'sessions#new',       via: 'get'  
-  match '/logout',  to: 'sessions#destroy',   via: 'delete'
-  match '/help',    to: 'static_pages#help',  via: 'get'
-  match '/home',    to: 'static_pages#home',  via: 'get'
+  match '/signup',        to: 'users#new',          via: 'get'
+  match '/login',         to: 'sessions#new',       via: 'get'  
+  match '/logout',        to: 'sessions#destroy',   via: 'delete'
+  match '/help',          to: 'static_pages#help',  via: 'get'
+  match '/home',          to: 'static_pages#home',  via: 'get'
   match 'debtor/search',  to: 'debtors#search',     via: 'get', as: 'search'
   
   
