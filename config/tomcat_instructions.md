@@ -5,7 +5,7 @@
 3. download and install JSE security files for Java7
 4. __NO SPACES__ on path for tomcat!!! (no # either) (windows limitation)
 5. at the WEB-INF dir do `jruby -S rake db:migrate RAILS_ENV=production`
-6. Set Tomcat server Heap memory up on the Java tab (Rails 4 requirement)
+6. Set Tomcat server Heap memory up on the Java tab in windows(Rails 4 requirement) or in `/etc/default/tomcat7` in Ubuntu.
    - `-XX:MaxPermSize=256M`
    - `-XX:PermSize=256M`
    
@@ -20,3 +20,7 @@
   - Gemfile
   - file
   - file
+  
+Notas:
+
+Ubuntu: `sudo service tomcat7 {stop|start|restart}`
