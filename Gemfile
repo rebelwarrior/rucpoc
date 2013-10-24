@@ -20,11 +20,10 @@ platforms :jruby do
   end
   group :development do
     gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0.beta2'
-    gem 'puma', '~> 2.6.0'
   end
+  gem 'puma', '~> 2.6.0'   # Server
   gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
   gem 'therubyrhino'
-  # Server
 end
 
 platforms :ruby do
