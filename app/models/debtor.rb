@@ -57,16 +57,16 @@ class Debtor < ActiveRecord::Base
   #   end
   # end
   
-  # def self.import(file)
-  #   CSV.foreach(file.path, headers: true) do |row|
-  #     row_hash = row.to_hash
-  #     #Analyze row_hash for correct contents.
-  #     debtor = find_by_id(row_hash[:id]) || new
-  #     debtor.attributes = row_hash.slice(*accessible_attributes)
-  #     debtor.save!
-  #     # Debtor.create! row.to_hash
-  #   end
-  # end
-  
   
 end
+
+__END__
+t.string   "name"
+t.string   "email"
+t.string   "tel"
+t.string   "address"
+t.string   "location"
+t.string   "contact_person"
+t.string   "employer_id_number"
+t.datetime "created_at"
+t.datetime "updated_at"

@@ -38,6 +38,9 @@ class CollectionsController < ApplicationController
     # @collection = Collection.new(collection_params) 
     @collection = Collection.find_by_id(params[:id])
     # && @collection.update_attribute(:paid?, true)
+    
+    ## Do paid? and in_process? toggle check HERE
+    
     if @collection.update_attributes(collection_params) && @collection.valid?
       flash[:success] = "Factura Actualizada"
       redirect_to @collection
