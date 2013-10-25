@@ -26,7 +26,7 @@ class Debtor < ActiveRecord::Base
       search_term = search_term.match(ein_regex).captures.join('-')
       result = where('employer_id_number LIKE ?', "%#{search_term}%")
     elsif search_term
-      search_term = search_term.downcase
+      search_term = search_term.downcase if (search_term.class == String)
       result = where('LOWER(name) LIKE ? OR employer_id_number LIKE ? OR email LIKE ?', 
                      "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
       #result = find(:all, :conditions => ['name LIKE ?', "%#{search_term}%"])

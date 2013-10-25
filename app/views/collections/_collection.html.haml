@@ -3,9 +3,9 @@
     = link_to "#{collection.id}", collection
     -# link_to "$#{collection.amount_owed}", collection
     - unless collection.paid?
-      = "<strong>$ #{collection.amount_owed}</strong>".html_safe
+      = "<strong>#{number_to_currency collection.amount_owed, :unit => "$"}</strong>".html_safe
     - else
-      = "<s>$ #{collection.amount_owed}</s>".html_safe
+      = "<s>#{number_to_currency collection.amount_owed, :unit => "$"}</s>".html_safe
     = "  --  "
     = collection.paid? ? "Pagada  --" : ""
     = collection.being_processed? ? "En Proceso  --" : ""

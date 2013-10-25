@@ -6,7 +6,7 @@ class ImportController < ApplicationController
   end
 
   def create
-    ImportController.import(params[:file])
+    process_CSV_file('/Users/davidacevedo/Downloads/June_with_headers_Invoices.csv') # (params[:file])
   end
 
   public
@@ -14,10 +14,16 @@ class ImportController < ApplicationController
     def process_CSV_file(file)
       ## For testing purposes file is redifined below
       file = '/Users/davidacevedo/Downloads/collections.csv'
+      # file = '/Users/davidacevedo/Downloads/June_with_headers_Invoices.csv'
+      puts "$$$$$$$$$$$$$$$$$"
+      puts file
       SmarterCSV.process(file, {:chunk_size => 10, verbose: true } ) do |file_chunk|
         file_chunk.each do |record_row|
           process_record_row(record_row, {})
+          #possibly put visual marker of progress
+          puts 'tick'
         end
+        puts 'tock'
       end   
     end
 
@@ -54,16 +60,19 @@ class ImportController < ApplicationController
 
     def debtor_already_defined_in_db?(record)
       #checks id, ein, then name and returns debtor_id or false
+      debtor = nil
+      #make below into a method and resend record stripping one at a time.
       if record[:debtor_id]
-        debtor = Debtor.search(record.fetch(:debtor_id))
+        debtor = Debtor.find_by_id(record.fetch(:debtor_id))
       elsif record[:employer_id_number]
-        debtor = Debtor.search(record.fetch(:employer_id_number))
+        debtor = Debtor.find_by_employee_id_number(record.fetch(:employer_id_number))
       elsif record[:debtor_name]
-        debtor = Debtor.search(record.fetch(:debtor_name))
+        debtor = Debtor.search(ActiveRecord::Base::sanitize(record.fetch(:debtor_name).force_encoding('utf-8')))
+        puts "NAME SEARCH"
       else 
         debtor = nil
       end
-      debtor.empty? ? false : debtor.id
+      debtor.blank? ? false : debtor.id
     end
 
 

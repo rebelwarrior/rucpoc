@@ -4,12 +4,15 @@
   = "#{debtor.id}"
   = " "
   %b
-    = link_to "<i class='icon-folder-open'></i> #{debtor.name}".html_safe, debtor 
+    = link_to(("<i class='icon-folder-open'></i> ".html_safe + debtor.name), debtor)
   = " - "
   = debtor.tel
   = debtor.email
   = link_to debtor.employer_id_number, debtor 
-  = " | $#{total}"
+  - if total.zero?
+    = " | #{number_to_currency total, :unit => "$"}"
+  -else
+    = " | <strong>".html_safe + number_to_currency(total, :unit => '$') + "</strong>".html_safe
   - if current_user.admin? #or current_user.supervisor?
     = " | "
     = link_to "<i class='icon-trash'></i> delete".html_safe, debtor, method: :delete, data: {confirm: "Confirme Borrar Record: ¿Seguro?"}
