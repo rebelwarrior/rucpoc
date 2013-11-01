@@ -7,14 +7,14 @@ class Debtor < ActiveRecord::Base
    before_save { self.employer_id_number = 
      employer_id_number.match(VALID_EIN_REGEX).captures[-2..-1].join('-') unless employer_id_number.blank?}
    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-   VALID_TEL_REGEX =/\A[0-9]{3}-?[0-9]{3}-?[0-9]{4}\z/
+   VALID_TEL_REGEX =/\A(\z|([0-9]{3}-?[0-9]{3}-?[0-9]{4}))\z/
    VALID_EIN_REGEX =/\A(\z|([0-9]{2})-?([0-9]{7}))\z/ 
    validates(:email, format: { with: VALID_EMAIL_REGEX})
    validates :name, presence: true
    validates :employer_id_number, uniqueness: true, 
      unless: Proc.new { |deb| deb.employer_id_number.blank?  }
    validates :tel, format: { with: VALID_TEL_REGEX, 
-     message: "Debe de der un nmero de teléfono válido: 'xxx-xxx-xxx'" }
+     message: "Debe de der un número de teléfono válido: 'xxx-xxx-xxx'" }
    validates :employer_id_number, format: { with: VALID_EIN_REGEX,
      message: "El Número de Seguro Social Patronal debe de ser válido: 'xx-xxxxxxx' o en blanco." }
 
