@@ -51,26 +51,26 @@ class ImportController < ApplicationController
       puts "Is this an id?? ====> #{debtor_already_defined_in_db_result} <====="
       collection_array = [:collection_payment_emmiter_info, :collection_payment_id_number,
         :transaction_contact_person, :notes, :bounced_check_number, :bounced_check_bank, :debtor_id,
-        :amount_owed, :internal_invoice_number ]
+        :amount_owed, :internal_invoice_number, :type_of_debt, :original_debt_date, :original_debt, :amount_paid ]
+      debtor_array = [:employer_id_number,:name,:tel,:email,:address,:location,:contact_person]
+      # Debtor.column_names - :created_at ect. how to do?
       if debtor_already_defined_in_db_result #no updating a collection (only creating new ones) updating w/ options later
         record[:debtor_id] = debtor_already_defined_in_db_result
         store_record(record, collection_array)
       elsif record[:debtor_name] and !record[:debtor_name].strip.downcase['null'] #create debtor
         puts "Is this a NAME?? ====> #{record[:debtor_name]} <====="
-        puts " SO FAR ===+++ #{record}"
-        debtor_array = [:employer_id_number,:name,:tel,:email,:address,:location,:contact_person]
         debtor_record = add_missing_keys(record, debtor_array)
         debtor_record[:name] = record[:debtor_name]
-        # Change nil value for acceptable value
-        debtor_record[:employer_id_number] = '' if debtor_record[:employer_id_number].nil?
-        debtor_record[:tel] = '0000000000' if debtor_record[:tel].nil?
-        debtor_record[:email] = "#{rand(9999)}_#{Time.now.to_i}@example.com" if debtor_record[:email].nil?
-        # puts " SO FAR ===+++ #{debtor_record}"
-          debtor = store_debtor_record(debtor_record, debtor_array)
-          record[:debtor_id] = debtor.id 
-          # puts " SO FAR ===+++ #{debtor}"
-          puts " SO FAR ===+++ #{record}"
-          store_record(record, collection_array) unless record[:internal_invoice_number].blank?
+        ## Change nil value for acceptable value
+          debtor_record[:employer_id_number] = '' if debtor_record[:employer_id_number].nil?
+          debtor_record[:tel] = '0000000000' if debtor_record[:tel].nil?
+          debtor_record[:email] = "#{rand(9999)}_#{Time.now.to_i}@example.com" if debtor_record[:email].nil?
+        ##^^Change nil value for acceptable value^^
+        debtor = store_debtor_record(debtor_record, debtor_array)
+        record[:debtor_id] = debtor.id 
+        # puts " SO FAR ===+++ #{debtor}"
+        # puts " SO FAR ===+++ #{record}"
+        store_record(record, collection_array) unless record[:internal_invoice_number].blank?
       else
         # flash
         puts "WTF WTF WFT!!"
@@ -78,9 +78,9 @@ class ImportController < ApplicationController
       end 
     end
 
-    def store_record(record, collection_array=[])
+    def store_record(record, collection_array=[], model=Collection) #refactor to use named arguments
       collection_record = delete_all_keys_execpt(record, collection_array) #there must be a bug here
-      saved = Collection.new(collection_record)
+      saved = model.new(collection_record)
       puts saved.inspect
       begin
         saved.save!
@@ -92,7 +92,7 @@ class ImportController < ApplicationController
       saved
     end
 
-    def store_debtor_record(record, debtor_array=[])
+    def store_debtor_record(record, debtor_array=[]) # how do I pass the model name in here?
       debtor_record = delete_all_keys_execpt(record, debtor_array)
       saved = Debtor.new(debtor_record)
       puts saved.inspect
