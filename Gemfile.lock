@@ -1,4 +1,12 @@
 GIT
+  remote: http://github.com/fac/cmess.git
+  revision: aff4c6b16e44bbd9644d3243ebe6a312e28e132d
+  specs:
+    cmess (0.2.5)
+      htmlentities
+      ruby-nuggets (>= 0.3.3)
+
+GIT
   remote: https://github.com/jruby/warbler.git
   revision: 357fbfac6d4e97dee0b7bd563ce1a62b5f833f8b
   specs:
@@ -109,6 +117,7 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     hike (1.2.3)
+    htmlentities (4.3.1)
     i18n (0.6.5)
     jbuilder (1.5.2)
       activesupport (>= 3.0.0)
@@ -157,6 +166,8 @@ GEM
       method_source (~> 0.8)
       slop (~> 3.4)
       spoon (~> 0.0)
+    puma (2.6.0)
+      rack (>= 1.1, < 2.0)
     puma (2.6.0-java)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
@@ -196,6 +207,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-nuggets (0.9.5)
     rubyzip (0.9.9)
     sass (3.2.12)
     sass-rails (4.0.1)
@@ -252,6 +264,7 @@ DEPENDENCIES
   bootstrap-sass (~> 2.3.2.2)
   bootstrap-will_paginate
   capybara (~> 2.1.0)
+  cmess!
   coffee-rails (~> 4.0.0)
   cucumber
   cucumber-rails (~> 1.4.0)

@@ -1,44 +1,40 @@
+- provide(:title, @import_title)
 %h1 Importar CSV
 
 %p
-  A CSV or Excel file can be used to import records. 
-  The first row should be the column name. The following columns are allowed.
-
-/ <ul>
-/   <% Product.columns.each do |column| %>
-/     <% if column.name.in? ["id", *Product.accessible_attributes] %>
-/       <li>
-/         <strong><%= column.name %></strong> -
-/         <%= column.type.to_s.titleize %> type
-/       </li>
-/     <% end %>
-/   <% end %>
-/ </ul>
-
--# form_tag import_path, multipart:true do
--# file_field_tag :file
--# submit_tag "Import"
-
-
-/ = form_for @import do |f| 
-/   - if @import.errors.any? 
-/     #error_explanation
-/       %h3
-/         = pluralize(@import.errors.count, "error")
-/         = "prohibited this import from completing:"
-/       %ul
-/         - @import.errors.full_messages.each do |msg|
-/           %li
-/             = msg
-/         /
-/   /
-/   .field
-/     = f.file_field :file
-/   .buttons
-/     = f.submit "Import" 
-/ /
-
+  Un file CSV puede ser usado para importar records. 
+%p
+  La primera file deben ser los nombre de la columnas de la base de datos. 
+  (Exporte un CSV para ver cuales son.)  
+.progress.progress-striped.active.hide
+  %div.bar#progress{:style => "width: #{'5.0'}%;"}
+/ - if @user.admin? or @user.supervisor?
 = form_tag import_path, multipart: true do
   = file_field_tag :file
-  = submit_tag "Importar"
+  = submit_tag "Importar", class: 'btn'
 /
+
+/Add and onclick event to button at add active to .progress so as to get it working.
+/ :coffeescript
+/   resulting = $.get("#{url_for(controller: 'import', action: 'progress')}")
+/   console.log resulting
+/ 
+/ :javascript
+/   $(document).ready(function(){
+/     var progresspump = setInterval(function(){
+/       /* query the completion percentage from the server */
+/       $.get("#{url_for(controller: 'import', action: 'progress')}", function(data){
+/         /* update the progress bar width */
+/         console.log(data);
+/         $("#progress").css('width', data+'%');
+/         /* and display the numeric value */
+/         /* $("#progress").html(data+'%'); */
+/ 
+/         /* test to see if the job has completed */
+/         if(data > 99.999) {
+/           clearInterval(progresspump);
+/           $("#progressouter").removeClass("active");
+/           $("#progress").html("Done");
+/         }
+/       })
+/     }, 1000);});

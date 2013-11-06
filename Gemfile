@@ -45,6 +45,7 @@ platforms :ruby do
 end
 
 gem 'smarter_csv'
+gem 'cmess', :git => 'http://github.com/fac/cmess.git'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

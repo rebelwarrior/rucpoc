@@ -1,38 +1,84 @@
 class ImportController < ApplicationController
   before_action :signed_in_user
+  require 'cmess/guess_encoding'
+  include ActionController::Live
 
   def new
-    ImportController.import(params[:file])
+    @user = current_user
+    @import_title = "Importar"
+    @file_lines = 0
   end
 
   def create
-    process_CSV_file('/Users/davidacevedo/Downloads/June_with_headers_Invoices.csv') # (params[:file])
-    redirect_to collections_path
+    file = params[:file]
+    @file_lines = file.open.lines.inject(0){|total, amount| total += 1}
+    file.open.rewind # To reset file.
+    puts "Lines ==> #{@file_lines}"
+    if file.blank?
+      flash[:error] = "Ningún file selecionado."
+      redirect_to action: 'new', status: 303 
+    else
+      puts "Headers ==>> #{params[:file].headers} <<=="
+      if file.headers['Content-Type: text/csv'] or file.headers['Content-Type: application/vnd.ms-excel']
+        puts check_utf_encoding(file.tempfile)
+        process_CSV_file(file.tempfile, @file_lines) 
+        redirect_to collections_path
+      else 
+        flash[:error] = "No es un CSV"
+        flash[:notice] = file.headers
+        redirect_to action: 'new', status: 303 #, flash: { error: "No es un CSV" } 
+      end
+    end 
+  end
+  
+  def progress
+    # result = response.read if response
+        #shows info for progress bar
+    # render text: result
+    render stream: true
   end
 
   public
+    def check_utf_encoding(file)
+      require 'cmess/guess_encoding'
+      input = File.read(file)
+      CMess::GuessEncoding::Automatic.guess(input)
+    end
 
-    def process_CSV_file(file)
-      ## For testing purposes file is redifined below
-      # file = '/Users/davidacevedo/Downloads/collections.csv'
-      file = '/Users/davidacevedo/Downloads/June_with_headers_Invoices.csv'
-      puts "$$$$$$$$$$$$$$$$$"
-      puts file
+    def process_CSV_file(file, total_lines = 0, counter = 0)
+      start_time = Time.now
       #Must make sure file is on UTF-8 Encoding or it will FAIL!!! How to check??
+      charset = check_utf_encoding(file) || "bom|utf-8"
       #Insert Active Record transaction
       ActiveRecord::Base.transaction do
       # Must Check if any two lines are equal, use a hash funtion on each line and check the value of it.
-        SmarterCSV.process(file, {:chunk_size => 10, verbose: true, file_encoding: 'utf-8' } ) do |file_chunk|
+        SmarterCSV.process(file, {:chunk_size => 10, verbose: true, file_encoding: "#{charset}" } ) do |file_chunk|
           file_chunk.each do |record_row|
-            #Sanitize row =>
             sanitized_row = sanitize_row(record_row)
             process_record_row(sanitized_row, {})
+            counter += 1
+            send_message(tachy(counter, total_lines))
           end
+          # 10.times {counter << 1}
         end
+        end_time = Time.now
+        send_message(100, true)
+        flash[:success] = "#{counter} facturas procesadas en #{((end_time - start_time) / 60).round(2)} minutos."
       end
     end
+    
+    def send_message(msg, close_it=false)
+      response.headers['Content-Type'] = 'text/event-stream'
+      response.stream.write msg
+      response.stream.close if close_it
+    end
 
-  private
+
+  private 
+    def tachy(number, total)
+      number / total * 100
+    end
+  
     def sanitize_row(record)
       #iterate over each value and strip any Dangerous SQL 
       #key sanitation happens w/ a merge later on
@@ -46,14 +92,16 @@ class ImportController < ApplicationController
       cleaned_record
     end
   
+    # collection_array = [:collection_payment_emmiter_info, :collection_payment_id_number,
+    #   :transaction_contact_person, :notes, :bounced_check_number, :bounced_check_bank, :debtor_id,
+    #   :amount_owed, :internal_invoice_number, :type_of_debt, :original_debt_date, :original_debt, :amount_paid ]
+    # debtor_array = [:employer_id_number,:name,:tel,:email,:address,:location,:contact_person]
+  
     def process_record_row(record, options={})
       debtor_already_defined_in_db_result = debtor_already_defined_in_db?(record)
       puts "Is this an id?? ====> #{debtor_already_defined_in_db_result} <====="
-      collection_array = [:collection_payment_emmiter_info, :collection_payment_id_number,
-        :transaction_contact_person, :notes, :bounced_check_number, :bounced_check_bank, :debtor_id,
-        :amount_owed, :internal_invoice_number, :type_of_debt, :original_debt_date, :original_debt, :amount_paid ]
-      debtor_array = [:employer_id_number,:name,:tel,:email,:address,:location,:contact_person]
-      # Debtor.column_names - :created_at ect. how to do?
+      collection_array = select_column_names(Collection)
+      debtor_array = select_column_names(Debtor)
       if debtor_already_defined_in_db_result #no updating a collection (only creating new ones) updating w/ options later
         record[:debtor_id] = debtor_already_defined_in_db_result
         store_record(record, collection_array)
@@ -61,16 +109,16 @@ class ImportController < ApplicationController
         puts "Is this a NAME?? ====> #{record[:debtor_name]} <====="
         debtor_record = add_missing_keys(record, debtor_array)
         debtor_record[:name] = record[:debtor_name]
-        ## Change nil value for acceptable value
+        ## Change nil values for acceptable values:
           debtor_record[:employer_id_number] = '' if debtor_record[:employer_id_number].nil?
           debtor_record[:tel] = '0000000000' if debtor_record[:tel].nil?
           debtor_record[:email] = "#{rand(9999)}_#{Time.now.to_i}@example.com" if debtor_record[:email].nil?
         ##^^Change nil value for acceptable value^^
-        debtor = store_debtor_record(debtor_record, debtor_array)
+        debtor = store_record(debtor_record, debtor_array, Debtor)
         record[:debtor_id] = debtor.id 
         # puts " SO FAR ===+++ #{debtor}"
         # puts " SO FAR ===+++ #{record}"
-        store_record(record, collection_array) unless record[:internal_invoice_number].blank?
+        store_record(record, collection_array, Collection) unless record[:internal_invoice_number].blank?
       else
         # flash
         puts "WTF WTF WFT!!"
@@ -78,9 +126,9 @@ class ImportController < ApplicationController
       end 
     end
 
-    def store_record(record, collection_array=[], model=Collection) #refactor to use named arguments
-      collection_record = delete_all_keys_execpt(record, collection_array) #there must be a bug here
-      saved = model.new(collection_record)
+    def store_record(record, column_name_array=[], model=Collection) #refactor to use named arguments
+      to_store_record = delete_all_keys_execpt(record, column_name_array)
+      saved = model.new(to_store_record)
       puts saved.inspect
       begin
         saved.save!
@@ -92,19 +140,6 @@ class ImportController < ApplicationController
       saved
     end
 
-    def store_debtor_record(record, debtor_array=[]) # how do I pass the model name in here?
-      debtor_record = delete_all_keys_execpt(record, debtor_array)
-      saved = Debtor.new(debtor_record)
-      puts saved.inspect
-      begin
-        saved.save!
-      rescue ActiveRecord::RecordNotUnique
-        flash.now 
-      end
-      raise unless saved.persisted?
-      #if succeeds.. do a save!
-      saved
-    end
 
     def debtor_already_defined_in_db?(record)
       #checks id, ein, then name and returns debtor_id or false
@@ -126,12 +161,20 @@ class ImportController < ApplicationController
       debtor.blank? ? false : debtor.id
     end
 
-
-    def delete_all_keys_execpt(hash_record, 
-        execpt_array= [])
+    def delete_all_keys_execpt(hash_record, execpt_array= [])
+      # returns hash with *only* keys defined in array 
       hash_record.select do |key|
         execpt_array.include?(key)
       end
+    end
+    
+    def select_column_names(model)
+      #removes autogenerated colums from array
+      array_of_column_names = model.column_names.map {|x| x.to_sym}
+      [:id, :created_at, :updated_at].each do |item|
+        array_of_column_names.delete(item)
+      end
+      array_of_column_names
     end
 
     def add_missing_keys(hash_record, keys_array=[], default_value=nil)
@@ -143,14 +186,3 @@ end
 
 
 __END__
-# def self.import(file)
-#   allowed_attributes = [ "id","name","released_on","price","created_at","updated_at"]
-#   spreadsheet = open_spreadsheet(file)
-#   header = spreadsheet.row(1)
-#   (2..spreadsheet.last_row).each do |i|
-#     row = Hash[[header, spreadsheet.row(i)].transpose]
-#     product = find_by_id(row["id"]) || new
-#     product.attributes = row.to_hash.select { |k,v| allowed_attributes.include? k }
-#     product.save!
-#   end
-# end
