@@ -1,6 +1,7 @@
 class ImportController < ApplicationController
   before_action :signed_in_user
   require 'cmess/guess_encoding'
+  require 'reloader/sse'
   include ActionController::Live
 
   def new
@@ -10,32 +11,50 @@ class ImportController < ApplicationController
   end
 
   def create
+    begin
+    # response.headers['Content-Type'] = 'text/event-stream'
     file = params[:file]
-    @file_lines = file.open.lines.inject(0){|total, amount| total += 1}
-    file.open.rewind # To reset file.
-    puts "Lines ==> #{@file_lines}"
     if file.blank?
+      # response.stream.close
       flash[:error] = "Ningún file selecionado."
       redirect_to action: 'new', status: 303 
     else
-      puts "Headers ==>> #{params[:file].headers} <<=="
+      file_lines = find_file_lines(file)
+      # puts "Headers ==>> #{params[:file].headers} <<=="
       if file.headers['Content-Type: text/csv'] or file.headers['Content-Type: application/vnd.ms-excel']
         puts check_utf_encoding(file.tempfile)
-        process_CSV_file(file.tempfile, @file_lines) 
+        process_CSV_file(file.tempfile, file_lines) 
         redirect_to collections_path
       else 
         flash[:error] = "No es un CSV"
         flash[:notice] = file.headers
-        redirect_to action: 'new', status: 303 #, flash: { error: "No es un CSV" } 
+        # response.stream.close
+        redirect_to action: 'new', status: 303 
       end
     end 
+    ensure
+      # response.stream.close
+    end
+    # render :text => proc {|response, output| output.write("50") }
+    # render stream: true, layout: false
   end
   
   def progress
-    # result = response.read if response
-        #shows info for progress bar
-    # render text: result
-    render stream: true
+    # render text: "hi", layout: false
+    response.headers['Content-Type'] = 'text/event-stream'
+    sse = Reloader::SSE.new(response.stream)
+    begin 
+      loop do
+        sse.write({ :time => Time.now})
+        sleep 1
+      end
+    rescue IOError
+      # When the client disconnects, we'll get an IOError on write
+    ensure
+      sse.close
+    end
+    
+    
   end
 
   public
@@ -50,31 +69,53 @@ class ImportController < ApplicationController
       #Must make sure file is on UTF-8 Encoding or it will FAIL!!! How to check??
       charset = check_utf_encoding(file) || "bom|utf-8"
       #Insert Active Record transaction
+      # sse = Reloader::SSE.new(response.stream)
+      begin
       ActiveRecord::Base.transaction do
       # Must Check if any two lines are equal, use a hash funtion on each line and check the value of it.
+      # begin
         SmarterCSV.process(file, {:chunk_size => 10, verbose: true, file_encoding: "#{charset}" } ) do |file_chunk|
           file_chunk.each do |record_row|
             sanitized_row = sanitize_row(record_row)
             process_record_row(sanitized_row, {})
             counter += 1
-            send_message(tachy(counter, total_lines))
+            # send_message(tachy(counter, total_lines), sse)
           end
           # 10.times {counter << 1}
         end
         end_time = Time.now
-        send_message(100, true)
+        # send_message(100, sse, :close_it => true)
         flash[:success] = "#{counter} facturas procesadas en #{((end_time - start_time) / 60).round(2)} minutos."
       end
+      rescue IOError
+      ensure
+        # sse.close
+      end
+      # rescue ActiveRecord:: => error
+        # flash[:error] = error.inspect
+      # end
     end
     
-    def send_message(msg, close_it=false)
-      response.headers['Content-Type'] = 'text/event-stream'
-      response.stream.write msg
-      response.stream.close if close_it
+    def send_message(msg, obj, options ={})
+      # response.headers['Content-Type'] = 'text/event-stream'
+      # response.stream.write msg
+      # response.stream.close
+      obj.write msg
+      obj.close if options[:close_it]
     end
 
 
   private 
+    def find_file_lines(file)
+      start_time = Time.now
+      result = file.open.lines.inject(0){|total, amount| total += 1}
+      file.open.rewind # To reset file.
+      end_time = Time.now
+      puts "Lines ==> #{@file_lines} in #{((end_time - start_time) / 60).round(2)}"
+      result
+    end
+  
+  
     def tachy(number, total)
       number / total * 100
     end

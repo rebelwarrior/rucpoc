@@ -6,7 +6,7 @@
 %p
   La primera file deben ser los nombre de la columnas de la base de datos. 
   (Exporte un CSV para ver cuales son.)  
-.progress.progress-striped.active.hide
+.progress.progress-striped
   %div.bar#progress{:style => "width: #{'5.0'}%;"}
 / - if @user.admin? or @user.supervisor?
 = form_tag import_path, multipart: true do
@@ -14,27 +14,61 @@
   = submit_tag "Importar", class: 'btn'
 /
 
+/ :javascript
+/   jQuery(document).ready(function() {
+/       setTimeout(function() {
+/         // 接続開始
+/         var source = new EventSource('/progress');
+/ 
+/         // サーバー側イベントの共通ハンドラを定義
+/         function eventLogger(event){
+/           $("#progress").prepend(event.data + "<br>");
+/           cosole.log(event.data);
+/ 
+/           // 接続終了判定
+/           if (event.data == 'stream_end') { source.close() };
+/         }
+/ 
+/         // messageイベントのハンドラを設定
+/         source.onmessage = eventLogger;
+/       }, 10);
+/     });
+/     jQuery(document).ready(function() {
+/       setTimeout(function() {
+/         var source = new EventSource('/progress');
+/         source.addEventListener('refresh', function(e) {
+/           $("#refresh").prepend(event.data + "<br>");
+/           // window.location.reload();
+/ 
+/           // 接続終了判定
+/           if (event.data == 'stream_end') { source.close() };
+/         });
+/       }, 20);
+/     });
+
+
+
 /Add and onclick event to button at add active to .progress so as to get it working.
 / :coffeescript
 /   resulting = $.get("#{url_for(controller: 'import', action: 'progress')}")
 /   console.log resulting
 / 
-/ :javascript
-/   $(document).ready(function(){
-/     var progresspump = setInterval(function(){
-/       /* query the completion percentage from the server */
-/       $.get("#{url_for(controller: 'import', action: 'progress')}", function(data){
-/         /* update the progress bar width */
-/         console.log(data);
-/         $("#progress").css('width', data+'%');
-/         /* and display the numeric value */
-/         /* $("#progress").html(data+'%'); */
-/ 
-/         /* test to see if the job has completed */
-/         if(data > 99.999) {
-/           clearInterval(progresspump);
-/           $("#progressouter").removeClass("active");
-/           $("#progress").html("Done");
-/         }
-/       })
-/     }, 1000);});
+:javascript
+  $(document).ready(function(){
+    var progresspump = setInterval(function(){
+      /* query the completion percentage from the server */
+      $.get("#{url_for(controller: 'import', action: 'create')}", function(data){
+        /* update the progress bar width */
+        console.log(data);
+        $("#progress").css('width', data+'%');
+        /* and display the numeric value */
+        /* $("#progress").html(data+'%'); */
+
+        /* test to see if the job has completed */
+        if(data > 99.999) {
+          clearInterval(progresspump);
+          $("#progressouter").removeClass("active");
+          $("#progress").html("Done");
+        }
+      })
+    }, 1000);});

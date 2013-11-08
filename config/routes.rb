@@ -20,7 +20,7 @@ RucPoc1::Application.routes.draw do
   match 'debtor/search',  to: 'debtors#search',     via: 'get', as: 'search'
   match '/import',        to: 'import#create',      via: 'post'
   match '/import',        to: 'import#new',         via: 'get'
-  match '/progress',      to: 'import#progress',    via: 'get'
+  match '/progress',      to: 'import#progress',      via: 'get'
   
   
   # The priority is based upon order of creation: first created -> highest priority.
