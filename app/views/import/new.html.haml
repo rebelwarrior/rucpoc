@@ -57,7 +57,7 @@
   $(document).ready(function(){
     var progresspump = setInterval(function(){
       /* query the completion percentage from the server */
-      $.get("#{url_for(controller: 'import', action: 'create')}", function(data){
+      $.get("#{url_for(controller: 'import', action: 'progress')}", function(data){
         /* update the progress bar width */
         console.log(data);
         $("#progress").css('width', data+'%');

@@ -1,8 +1,14 @@
 class ImportController < ApplicationController
   before_action :signed_in_user
   require 'cmess/guess_encoding'
-  require 'reloader/sse'
-  include ActionController::Live
+  # require 'reloader/sse'
+  # include ActionController::Live
+  require 'import_observer' #in lib directory
+  require 'import_observable'
+  @@counter ||= MyObservableClass.new
+  @@observer ||= MyObserverClass.new
+  @@counter.add_observer(@@observer)
+  
 
   def new
     @user = current_user
@@ -11,6 +17,8 @@ class ImportController < ApplicationController
   end
 
   def create
+    # @counter = MyObservableClass.new
+    # @counter.add_observer(MyObserverClass.new)
     begin
     # response.headers['Content-Type'] = 'text/event-stream'
     file = params[:file]
@@ -22,8 +30,8 @@ class ImportController < ApplicationController
       file_lines = find_file_lines(file)
       # puts "Headers ==>> #{params[:file].headers} <<=="
       if file.headers['Content-Type: text/csv'] or file.headers['Content-Type: application/vnd.ms-excel']
-        puts check_utf_encoding(file.tempfile)
-        process_CSV_file(file.tempfile, file_lines) 
+        char_set = check_utf_encoding(file.tempfile)
+        process_CSV_file(file.tempfile, file_lines, char_set) 
         redirect_to collections_path
       else 
         flash[:error] = "No es un CSV"
@@ -39,20 +47,29 @@ class ImportController < ApplicationController
     # render stream: true, layout: false
   end
   
+  def process_CSV_file(*args)
+    # @@counter ||= MyObservableClass.new
+    @@counter.process_CSV_file(*args)
+  end
+  
   def progress
+    # @@counter ||= MyObservableClass.new
+    # @@counter.add_observer(MyObserverClass.new)
+    # @@observer = MyObserverClass.new
+    render text: @@observer.data, layout: false
     # render text: "hi", layout: false
-    response.headers['Content-Type'] = 'text/event-stream'
-    sse = Reloader::SSE.new(response.stream)
-    begin 
-      loop do
-        sse.write({ :time => Time.now})
-        sleep 1
-      end
-    rescue IOError
-      # When the client disconnects, we'll get an IOError on write
-    ensure
-      sse.close
-    end
+    # response.headers['Content-Type'] = 'text/event-stream'
+    # sse = Reloader::SSE.new(response.stream)
+    # begin 
+    #   loop do
+    #     sse.write({ :time => Time.now})
+    #     sleep 1
+    #   end
+    # rescue IOError
+    #   # When the client disconnects, we'll get an IOError on write
+    # ensure
+    #   sse.close
+    # end
     
     
   end
@@ -64,7 +81,7 @@ class ImportController < ApplicationController
       CMess::GuessEncoding::Automatic.guess(input)
     end
 
-    def process_CSV_file(file, total_lines = 0, counter = 0)
+    def process_CSV_file_2(file, total_lines = 0, counter = 0)
       start_time = Time.now
       #Must make sure file is on UTF-8 Encoding or it will FAIL!!! How to check??
       charset = check_utf_encoding(file) || "bom|utf-8"
@@ -79,6 +96,8 @@ class ImportController < ApplicationController
             sanitized_row = sanitize_row(record_row)
             process_record_row(sanitized_row, {})
             counter += 1
+            changed
+            notify_observers(counter)
             # send_message(tachy(counter, total_lines), sse)
           end
           # 10.times {counter << 1}
@@ -105,7 +124,7 @@ class ImportController < ApplicationController
     end
 
 
-  private 
+  public 
     def find_file_lines(file)
       start_time = Time.now
       result = file.open.lines.inject(0){|total, amount| total += 1}
@@ -132,11 +151,6 @@ class ImportController < ApplicationController
       end
       cleaned_record
     end
-  
-    # collection_array = [:collection_payment_emmiter_info, :collection_payment_id_number,
-    #   :transaction_contact_person, :notes, :bounced_check_number, :bounced_check_bank, :debtor_id,
-    #   :amount_owed, :internal_invoice_number, :type_of_debt, :original_debt_date, :original_debt, :amount_paid ]
-    # debtor_array = [:employer_id_number,:name,:tel,:email,:address,:location,:contact_person]
   
     def process_record_row(record, options={})
       debtor_already_defined_in_db_result = debtor_already_defined_in_db?(record)

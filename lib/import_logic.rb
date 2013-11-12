@@ -2,7 +2,7 @@ module ImportLogic
 
 public
 
-  def process_CSV_file(file)
+  def process_CSV_file_3(file)
     ## For testing purposes file is redifined below
     file = '/Users/davidacevedo/Downloads/collections.csv'
     SmarterCSV.process(file, {:chunk_size => 10, verbose: true } ) do |file_chunk|
