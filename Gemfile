@@ -98,15 +98,14 @@ group :test do
   gem 'capybara', '~> 2.1.0'
   # gem 'capybara-webkit', '~> 1.0.0'
   gem 'database_cleaner'
-  gem 'launchy', '~> 2.3.0'
+  gem 'launchy', '~> 2.3.0', require: false
 end
 
 
 group :development do
   gem 'localeapp', require: false
   gem 'pry', require: false
-  # Remember to turn pagination off on .pryrc file:
-  # Pry.config.pager = false
+  # Remember to turn pagination off on .pryrc file: Pry.config.pager = false
   # gem 'pry-rails'
 end
 
