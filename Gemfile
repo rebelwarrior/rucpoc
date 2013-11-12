@@ -86,23 +86,27 @@ group :development, :test do
   gem 'cucumber', require: false
   gem 'cucumber-rails', '~> 1.4.0', :require => false
   # Remember to move /script/cucumber to /bin/cucumber
-  gem 'database_cleaner' #, github: 'bmabey/database_cleaner' #This won't work w/ warbler. 
   gem 'rspec-rails'
   gem 'guard-rspec'
-  gem 'haml-rails'
+  gem 'factory_girl_rails' 
   # gem 'jasminerice' # For CoffeeScript Testing.
   # gem 'guard-jasmine'
 end
 
 group :test do
+  gem 'faker', '~> 1.2.0'
   gem 'capybara', '~> 2.1.0'
-  # gem 'capybara-webkit'
+  # gem 'capybara-webkit', '~> 1.0.0'
+  gem 'database_cleaner'
+  gem 'launchy', '~> 2.3.0'
 end
 
 
 group :development do
   gem 'localeapp', require: false
   gem 'pry', require: false
+  # Remember to turn pagination off on .pryrc file:
+  # Pry.config.pager = false
   # gem 'pry-rails'
 end
 
