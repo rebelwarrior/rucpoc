@@ -3,7 +3,7 @@ heroku = false
 if heroku 
   ruby '2.0.0' 
 else
-  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.5'   #ruby=jruby-1.7.5
+  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.8'   #ruby=jruby-1.7.5
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
