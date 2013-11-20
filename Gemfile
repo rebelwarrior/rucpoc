@@ -4,7 +4,7 @@ if heroku
   ruby '2.0.0' 
 else
   ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.8' #ruby=jruby-1.7.5
-  # gem 'jruby-jars', '1.7.8' # or run bundle update jruby-jars
+  # run bundle update jruby-jars when new version of jruby
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -114,7 +114,8 @@ end
 group :deploy do
   platforms :jruby do
     unless heroku
-      gem 'warbler', '~> 1.4.0.beta1',:git => "https://github.com/jruby/warbler.git", :require => false
+      gem 'warbler', '~> 1.4.0', :require => false
+      # gem 'warbler', '~> 1.4.0.beta1',:git => "https://github.com/jruby/warbler.git", :require => false
       # gem 'net-ssh', :require => "net/ssh"
       # gem 'net-scp', :require => "net/scp" 
       # gem 'torquebox-remote-deployer'
