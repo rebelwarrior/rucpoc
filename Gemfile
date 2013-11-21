@@ -12,6 +12,9 @@ gem 'rails', '4.0.0'
 
 platforms :jruby do
   # Use jdbcpostgresql as the database for Active Record
+  group :development do
+    gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0.beta2'
+  end
   group :production do
     if heroku 
       gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.beta2'
@@ -19,10 +22,8 @@ platforms :jruby do
       gem 'activerecord-jdbcmysql-adapter', '~> 1.3.0.beta2' 
     end
   end
-  group :development do
-    gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0.beta2'
-  end
-  gem 'puma', '~> 2.6.0'   # Server
+  # Puma as server
+  gem 'puma', '~> 2.6.0'  
   gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
   gem 'therubyrhino'
 end
@@ -91,8 +92,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'factory_girl_rails' 
-  # gem 'jasminerice' # For CoffeeScript Testing.
-  # gem 'guard-jasmine'
+  # For CoffeeScript Testing.
+    # gem 'jasminerice' 
+    # gem 'guard-jasmine'
 end
 
 group :test do
@@ -107,7 +109,7 @@ end
 group :development do
   gem 'localeapp', require: false
   gem 'pry', require: false
-  # Remember to turn pagination off on .pryrc file: Pry.config.pager = false
+  # Remember to turn pagination off (for Jruby) on .pryrc file: Pry.config.pager = false
   # gem 'pry-rails'
 end
 
