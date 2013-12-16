@@ -1,0 +1,9 @@
+id,internal_invoice_number,amount_owed,paid,collection_payment_id_number,collection_payment_emmiter_info,transaction_contact_person,notes,bounced_check_bank,bounced_check_number,debtor_id,being_processed,created_at,updated_at,debtor_name
+1,22,5581.0,true,,,,as;ldkfj,El banco Mio,"",2,false,2013-08-26 11:57:01 -0400,2013-09-17 14:02:57 -0400,NULL
+4,78787874,78.0,false,,,,test,el banco de fomento ,"",2,true,2013-08-26 12:50:31 -0400,2013-09-17 14:26:23 -0400,NULL
+5,445,1.0,false,,,,esto es sparta,guapo bank,,3,false,2013-08-26 13:05:32 -0400,2013-08-26 13:05:32 -0400,3ro
+8,343,3000.0,false,,,,slkdjf,askdflj,,2,false,2013-09-04 13:53:10 -0400,2013-09-04 13:53:10 -0400,NULL
+10,023974,3.0,false,,,,ninguna,yiuy,,6,false,2013-09-04 16:19:53 -0400,2013-09-06 16:29:02 -0400,Cualquiera
+12,767,1.0,false,,,,note,banco,"",4,true,2013-09-13 12:13:03 -0400,2013-10-17 11:45:35 -0400,TiraloPorAhi Inc.
+13,2345,23.0,false,,,,"",banco,234,3,false,2013-10-17 11:34:51 -0400,2013-10-17 11:34:51 -0400,3ro
+14,557,40545.0,false,,,,"",banco,1,9,false,2013-10-21 12:56:25 -0400,2013-10-21 12:56:25 -0400,Tranquilo Bobby

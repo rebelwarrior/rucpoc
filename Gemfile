@@ -3,7 +3,7 @@ heroku = false
 if heroku 
   ruby '2.0.0' 
 else
-  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.8' #ruby=jruby-1.7.5
+  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.9' #ruby=jruby-1.7.8
   # run bundle update jruby-jars when new version of jruby
 end
 
@@ -25,6 +25,7 @@ platforms :jruby do
   gem 'puma', '~> 2.6.0'   # Server
   gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
   gem 'therubyrhino'
+  gem 'atomic'
 end
 
 platforms :ruby do
