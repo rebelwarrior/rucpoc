@@ -3,7 +3,7 @@ heroku = false
 if heroku 
   ruby '2.0.0' 
 else
-  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.9' #ruby=jruby-1.7.8
+  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.10' #ruby=jruby-1.7.8
   # run bundle update jruby-jars when new version of jruby
 end
 
