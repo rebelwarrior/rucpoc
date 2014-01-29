@@ -31,6 +31,7 @@ end
 platforms :ruby do
   group :development do
     gem 'sqlite3'
+    gem 'github-pages'
   end
   group :production do
     if heroku
@@ -127,3 +128,4 @@ group :deploy do
 end
 
 # For Warbler changes to config/application.rb and config/environtments/production.rb
+
