@@ -1,25 +1,27 @@
 require 'observer'
 # require 'smartercsv'
+require 'atomic_wrapper' #needed? or are all libs required by default
 
 class MyObservableClass #< ImportController
   include Observable
+  include Atomize
   
-  def process_CSV_file(file, total_lines = 0, charset="bom|utf-8", counter = 0)
+  def process_CSV_file(file, total_lines = 0, charset="bom|utf-8", counter = Atomize::new_counter(0))
     start_time = Time.now
     ActiveRecord::Base.transaction do
       SmarterCSV.process(file, {:chunk_size => 10, verbose: true, file_encoding: "#{charset}" } ) do |file_chunk|
         file_chunk.each do |record_row|
           sanitized_row = sanitize_row(record_row)
           process_record_row(sanitized_row, {})
-          counter += 1
-          Thread.new(counter) do | countering |
+          Atomize::plusplus(counter)# counter += 1
+          Thread.new(Atomize::get_counter(counter)) do | countering |
             changed
             notify_observers(countering)
           end
         end
       end
       end_time = Time.now
-      [counter, ((end_time - start_time) / 60 ).round(2)]
+      [Atomize::get_counter(counter), ((end_time - start_time) / 60 ).round(2)]
       # flash[:success] = "#{counter} facturas procesadas en #{((end_time - start_time) / 60).round(2)} minutos."
     end
   end

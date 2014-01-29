@@ -3,7 +3,7 @@ heroku = false
 if heroku 
   ruby '2.0.0' 
 else
-  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.8' #ruby=jruby-1.7.5
+  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.10' #ruby=jruby-1.7.8
   # run bundle update jruby-jars when new version of jruby
 end
 
@@ -26,11 +26,13 @@ platforms :jruby do
   gem 'puma', '~> 2.6.0'  
   gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
   gem 'therubyrhino'
+  gem 'atomic'
 end
 
 platforms :ruby do
   group :development do
     gem 'sqlite3'
+    gem 'github-pages'
   end
   group :production do
     if heroku
@@ -128,3 +130,4 @@ group :deploy do
 end
 
 # For Warbler changes to config/application.rb and config/environtments/production.rb
+
