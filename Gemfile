@@ -4,7 +4,9 @@ if heroku
   ruby '2.0.0' 
 else
   ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.10' #ruby=jruby-1.7.8
-  puts "run `bundle update jruby-jars` when new version of jruby"
+  if $0['warble']
+    puts "run `bundle update jruby-jars` when new version of jruby"
+  end
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

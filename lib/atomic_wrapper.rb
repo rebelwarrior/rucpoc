@@ -16,7 +16,7 @@ module Atomize
       counter.update { |v| v + 1 }
     end
     
-  elsif
+  else
     def counter(x)
       x
     end

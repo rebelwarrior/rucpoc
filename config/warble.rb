@@ -4,13 +4,13 @@
 # Warbler web application assembly configuration file
 Warbler::Config.new do |config|
   config.jar_name = "rucpocver#{Time.now.to_i}"
-  # config.jar_extension = "###{Time.now.to_i}.war"
   # The double ## does versioning in Tomcat but kills the war in windows
   # config.features = %w(executable)
   config.excludes = FileList["**/*/*.box"]
   config.includes = FileList["Rakefile"]
-  config.webserver = 'jenkins-ci.winstone'
+  config.webserver = 'jenkins-ci.winstone' #Winstone is default this is an imp ver
   # config.webxml.rails.env = 'production'
+  # config.webxml.customkey = { display_name: "NAMeIsAwesome!" }
   
   
   # Features: additional options controlling how the jar is built.
@@ -157,7 +157,7 @@ Warbler::Config.new do |config|
   # that you fix these values when running a production server!
   # If you're using threadsafe! mode, you probably don't want to set these values,
   # since 1 runtime(default for threadsafe mode) will be enough.
-  # config.webxml.jruby.min.runtimes = 2
+  # config.webxml.jruby.min.runtimes = 1
   # config.webxml.jruby.max.runtimes = 1
 
   # JNDI data source name
