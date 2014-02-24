@@ -23,7 +23,7 @@ Instructions for setting up the server machine will be found in the Github Pages
 [Github Pages](http://rebelwarrior.github.io/rucpoc/)
 
 __Name__
-RucPoc was originally 'registro único de cuentas por cobrar' but now it's just a meaningless-name associated with the [Rukh](http://en.wikipedia.org/wiki/Roc_(mythology)) from Arabian Nights. 
+RucPoc was originally 'RucPoc -- registro único de cuentas por cobrar' but now it's just a meaningless-name associated with the [Rukh](http://en.wikipedia.org/wiki/Roc_(mythology)) from Arabian Nights. 
 
 
 __License:__
