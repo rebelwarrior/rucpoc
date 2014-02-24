@@ -1,7 +1,7 @@
 RucPoc
 ======
 
-![Ruhk](/app/assets/images/179px-Edward_Julius_Detmold49.jpg)
+![Rukh](/app/assets/images/179px-Edward_Julius_Detmold49.jpg)
 
 Project originally devised as a way to keep track of bounced checks. The accounting of these is typically held outside the normal accounting to allow for the closing of the fiscal year. Originally the bounced checks have been kept track on a Excel file on a single computer. 
 
@@ -23,7 +23,7 @@ Instructions for setting up the server machine will be found in the Github Pages
 [Github Pages](http://rebelwarrior.github.io/rucpoc/)
 
 __Name__
-RucPoc was originally 'registro único de cuentas por cobrar' but now it's just a meaningless-name associated with the Ruhk from Arabian Nights. 
+RucPoc was originally 'registro único de cuentas por cobrar' but now it's just a meaningless-name associated with the [Rukh](http://en.wikipedia.org/wiki/Roc_(mythology)) from Arabian Nights. 
 
 
 __License:__
@@ -32,4 +32,4 @@ his code can be found at his [site](http://ruby.railstutorial.org/) and was orig
 Rest of the code is under GPL v3.
 
 
-
+image: [wikimedia commons](http://en.wikipedia.org/wiki/File:Edward_Julius_Detmold49.jpg): Charles Maurice Detmold (1883-1908)
