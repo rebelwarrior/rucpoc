@@ -21,7 +21,8 @@ platforms :jruby do
     if heroku 
       gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.beta2'
     else
-      gem 'activerecord-jdbcmysql-adapter', '~> 1.3.0.beta2' 
+      # gem 'activerecord-jdbcmysql-adapter', '~> 1.3.0.beta2' 
+      gem 'activerecord-jdbcmssql-adapter', '~> 1.3.2'
     end
   end
   # Puma as server
@@ -52,7 +53,7 @@ end
 
 # For CSV importing
 gem 'smarter_csv'
-gem 'cmess', :git => 'http://github.com/fac/cmess.git'
+gem 'cmess'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -88,6 +89,9 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'will_paginate', '~> 3.0.4'
 gem 'bootstrap-will_paginate'
+
+# Markdown
+gem 'kramdown' 
 
 group :development, :test do
   gem 'cucumber', require: false
