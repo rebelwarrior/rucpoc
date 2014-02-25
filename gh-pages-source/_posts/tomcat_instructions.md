@@ -33,8 +33,14 @@
 3. Run JRuby Lint to find issues
 4. Flip heroku settins en:
   - Gemfile
+  - config/application.rb:
+    ```
+    # For Warble
+    config.assets.enabled = true
+    config.assets.initialize_on_precompile = false
+    ```
   - file
-  - file
+  
   
 Notas:
 

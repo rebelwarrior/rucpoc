@@ -1,55 +1,35 @@
 source 'https://rubygems.org'
-heroku = false
-if heroku 
-  ruby '2.0.0' 
-else
-  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.10' #ruby=jruby-1.7.8
-  if $0['warble']
-    puts "run `bundle update jruby-jars` when new version of jruby"
-  end
+#ruby=jruby-1.7.10
+begin
+  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.10' #ruby=jruby-1.7.10
+end
+heroku = false 
+#Procfile for heroku: web: bundle exec rails server puma -p $PORT -e $RACK_ENV
+if $0['warble']
+  puts "run `bundle update jruby-jars` when new version of jruby"
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.3'
 
 platforms :jruby do
-  # Use jdbcpostgresql as the database for Active Record
   group :development do
-    gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0.beta2'
+    gem 'activerecord-jdbcsqlite3-adapter', '~> 1.3.0'  #'~> 1.3.0.beta2'
   end
   group :production do
     if heroku 
-      gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0.beta2'
+      gem 'activerecord-jdbcpostgresql-adapter', '~> 1.3.0' #'~> 1.3.0.beta2'
     else
-      # gem 'activerecord-jdbcmysql-adapter', '~> 1.3.0.beta2' 
       gem 'activerecord-jdbcmssql-adapter', '~> 1.3.2'
     end
-  end
-  # Puma as server
-  gem 'puma', '~> 2.6.0'  
-  gem 'activerecord-jdbc-adapter', '~> 1.3.0.beta2'
+  end 
+  gem 'activerecord-jdbc-adapter', '~> 1.3.0' #'~> 1.3.0.beta2'
   gem 'therubyrhino'
-  gem 'atomic'
+  gem 'atomic' #For atomic threaded operations
 end
 
-platforms :ruby do
-  group :development do
-    gem 'sqlite3'
-    gem 'github-pages'
-  end
-  group :production do
-    if heroku
-      gem 'therubyracer', '0.12.0'
-      gem 'pg'
-      # 12 Factor App for Log Stream
-      gem 'rails_12factor' 
-      # Use unicorn as the app server
-      gem 'unicorn' 
-      # Puma as server 
-      gem 'puma', '~> 2.6.0'
-    end
-  end
-end
+# Puma as server
+gem 'puma', '~> 2.7.1' 
 
 # For CSV importing
 gem 'smarter_csv'
@@ -82,7 +62,8 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+# gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
@@ -94,36 +75,53 @@ gem 'bootstrap-will_paginate'
 gem 'kramdown' 
 
 group :development, :test do
-  gem 'cucumber', require: false
-  gem 'cucumber-rails', '~> 1.4.0', :require => false
-  # Remember to move /script/cucumber to /bin/cucumber
-  gem 'rspec-rails'
-  gem 'guard-rspec'
-  gem 'factory_girl_rails' 
+  # Cucumber
+    gem 'cucumber', require: false
+    gem 'cucumber-rails', '~> 1.4.0', :require => false
+    # Remember to move /script/cucumber to /bin/cucumber
+  # Rspec  
+    gem 'rspec-rails'
+    gem 'guard-rspec'
+    gem 'factory_girl_rails' 
   # For CoffeeScript Testing.
     # gem 'jasminerice' 
     # gem 'guard-jasmine'
 end
 
 group :test do
+  #Rspec 
   gem 'faker', '~> 1.2.0'
-  gem 'capybara', '~> 2.1.0'
-  # gem 'capybara-webkit', '~> 1.0.0'
+  gem 'capybara'  #, '~> 2.1.0'
+  # selenium?
   gem 'database_cleaner'
   gem 'launchy', '~> 2.3.0', require: false
 end
-
 
 group :development do
   gem 'localeapp', require: false
   gem 'pry', require: false
   # Remember to turn pagination off (for Jruby) on .pryrc file: Pry.config.pager = false
   # gem 'pry-rails'
+  platforms :ruby do
+    gem 'sqlite3'
+    gem 'github-pages', require: false #Jekyll Integration
+  end
+end
+
+platforms :ruby do
+  group :production do
+    gem 'therubyracer'
+    gem 'pg'
+    gem 'unicorn' # Use unicorn as the app server
+    # 12 Factor App for Log Stream
+    gem 'rails_12factor' 
+  end
 end
 
 group :deploy do
   platforms :jruby do
     unless heroku
+      # For Warbler changes to config/application.rb and config/environtments/production.rb
       gem 'warbler', '~> 1.4.0', :require => false
       # gem 'warbler', '~> 1.4.0.beta1',:git => "https://github.com/jruby/warbler.git", :require => false
       # gem 'net-ssh', :require => "net/ssh"
@@ -135,5 +133,5 @@ group :deploy do
   end
 end
 
-# For Warbler changes to config/application.rb and config/environtments/production.rb
+
 

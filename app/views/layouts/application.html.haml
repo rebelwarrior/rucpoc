@@ -8,8 +8,11 @@
   = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
   = javascript_include_tag "application", "data-turbolinks-track" => true
   -# #### Favicons and touch icons #######
-  %link{:rel => "shortcut icon", :href => "#{asset_path 'favicon.png'}" }
-  %link{:rel => "apple-touch-icon-precomposed", :href => "#{asset_path '57.png'}"}
+  -# %link{:rel => "shortcut icon", :href => "#{asset_path 'favicon.png'}" }
+  -#%link{:rel => "apple-touch-icon-precomposed", :href => "#{asset_path '57.png'}"}
+  -#### Favicons and touch icons ####### (favicon_link_tag to app/assets/images)
+  = favicon_link_tag 'favicon.ico'
+  = favicon_link_tag '57.png', rel: 'apple-touch-icon', type: 'image/png'
   %style
     [class^="icon-"],[class*=" icon-"] {
     = "background-image: url(#{asset_path 'glyphicons-halflings.png'});};"

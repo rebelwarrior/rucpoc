@@ -3,7 +3,7 @@
 1. [JavaSDK]()
 2. [Java JCE]()
 1. [Tomcat7]()
-2. [JRuby](www.jruby.org)
+2. [JRuby](www.jruby.org) opcional necesario para las migraciones del db.
 3. [Mariadb]()
 
 Hmmm... Maybe I should create a SaltStack script for this...
