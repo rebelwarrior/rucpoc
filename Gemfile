@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-#ruby=jruby-1.7.10
-begin
-  ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.10' #ruby=jruby-1.7.10
-end
 heroku = false 
+
+ruby '2.0.0', :engine => 'jruby', :engine_version => '1.7.11' 
+#ruby=jruby-1.7.11
+
 #Procfile for heroku: web: bundle exec rails server puma -p $PORT -e $RACK_ENV
 if $0['warble']
   puts "run `bundle update jruby-jars` when new version of jruby"
@@ -75,10 +75,10 @@ gem 'bootstrap-will_paginate'
 gem 'kramdown' 
 
 group :development, :test do
-  # Cucumber
+  # Cucumber 
+    # Remember to move /script/cucumber to /bin/cucumber
     gem 'cucumber', require: false
     gem 'cucumber-rails', '~> 1.4.0', :require => false
-    # Remember to move /script/cucumber to /bin/cucumber
   # Rspec  
     gem 'rspec-rails'
     gem 'guard-rspec'
@@ -92,16 +92,15 @@ group :test do
   #Rspec 
   gem 'faker', '~> 1.2.0'
   gem 'capybara'  #, '~> 2.1.0'
-  # selenium?
   gem 'database_cleaner'
   gem 'launchy', '~> 2.3.0', require: false
+  # gem 'selenium-webdriver', "~> 2.39.0" #causes problems w/ rubyzip
 end
 
 group :development do
   gem 'localeapp', require: false
   gem 'pry', require: false
   # Remember to turn pagination off (for Jruby) on .pryrc file: Pry.config.pager = false
-  # gem 'pry-rails'
   platforms :ruby do
     gem 'sqlite3'
     gem 'github-pages', require: false #Jekyll Integration
@@ -110,11 +109,10 @@ end
 
 platforms :ruby do
   group :production do
-    gem 'therubyracer'
-    gem 'pg'
-    gem 'unicorn' # Use unicorn as the app server
-    # 12 Factor App for Log Stream
-    gem 'rails_12factor' 
+    gem 'therubyracer'    #javascript
+    gem 'pg'              #heroku db
+    gem 'unicorn'         # Use unicorn as the app server
+    gem 'rails_12factor'  # 12 Factor App for Log Stream 
   end
 end
 
@@ -122,7 +120,7 @@ group :deploy do
   platforms :jruby do
     unless heroku
       # For Warbler changes to config/application.rb and config/environtments/production.rb
-      gem 'warbler', '~> 1.4.0', :require => false
+      gem 'warbler', '1.4.0', :require => false
       # gem 'warbler', '~> 1.4.0.beta1',:git => "https://github.com/jruby/warbler.git", :require => false
       # gem 'net-ssh', :require => "net/ssh"
       # gem 'net-scp', :require => "net/scp" 
