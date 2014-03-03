@@ -9,7 +9,7 @@ describe "StaticPages" do
   describe "Help Page" do
     it 'should have information on how to use Rupoc' do
       visit '/help'
-      expect(page).to have_content("Como usar")
+      expect(page).to have_content(/Como usar/i)
     end
     it 'should have the correct title' do
       visit '/help'

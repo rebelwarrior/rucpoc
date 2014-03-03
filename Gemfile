@@ -76,8 +76,8 @@ gem 'kramdown'
 
 group :development, :test do
   # Cucumber # Remember to move /script/cucumber to /bin/cucumber
-    # gem 'cucumber', require: false
-    # gem 'cucumber-rails', '~> 1.4.0', :require => false
+    gem 'cucumber', require: false
+    gem 'cucumber-rails', '~> 1.4.0', :require => false
   # Rspec  
     gem 'rspec-rails'
     gem 'guard-rspec'

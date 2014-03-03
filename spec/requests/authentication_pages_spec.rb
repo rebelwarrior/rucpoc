@@ -11,7 +11,7 @@ describe "AuthenticationPages" do
     # it { should have_title('Log in')}
     
     describe "after visiting another page" do
-      before { click_link "Home" }
+      before { click_link "home" }
       it { should_not have_selector('div.alert.alert-error') }
     end
     
