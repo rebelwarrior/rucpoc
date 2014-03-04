@@ -11,11 +11,13 @@ module ImportLogic
           sanitized_row = sanitize_row(record_row)
           process_record_row(sanitized_row, {})
           # progress_bar.inc
-          Thread.new(progress_bar){|progress_bar| progress_bar.inc }
+          thr = Thread.new { progress_bar.inc }
+          thr.join
         end
       end
+      total_count = progress_bar.read
       end_time = Time.now
-      [progress_bar.size, ((end_time - start_time) / 60 ).round(2)]
+      [total_count, ((end_time - start_time) / 60 ).round(2)]
     end
   end
   

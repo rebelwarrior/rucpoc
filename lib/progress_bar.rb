@@ -15,11 +15,13 @@ class ProgressBar
     @pstore
   end
   
-  def inc
+  def inc(amount=1)
     @pstore.transaction do
       arr = @pstore.fetch(0, false)
       raise unless arr
-      arr << 1
+      amount.times do 
+        arr << 1
+      end
       @pstore[0] = arr
     end    
   end
@@ -30,10 +32,17 @@ class ProgressBar
     end
   end
   
-  def size
+  def read
+    @pstore.transaction do
+      @pstore.fetch(0, []).size
+    end
+  end
+  
+  def self.size
     if @pstore
-      arr = @pstore.transaction { @pstore.fetch(0, [])}
-      arr.size  
+      @pstore.transaction do
+        @pstore.fetch(0, []).size
+      end  
     else
       0
     end
