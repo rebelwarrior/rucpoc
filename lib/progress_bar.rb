@@ -26,6 +26,10 @@ class ProgressBar
     end    
   end
   
+  def name
+    @storage_file.to_path
+  end
+  
   def clear
     @pstore.transaction do
       @pstore[0] = []

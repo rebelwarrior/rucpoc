@@ -29,7 +29,7 @@ platforms :jruby do
 end
 
 # Puma as server
-gem 'puma', '~> 2.7.1' 
+gem 'puma', '~> 2.8.0'
 
 # For CSV importing
 gem 'smarter_csv'

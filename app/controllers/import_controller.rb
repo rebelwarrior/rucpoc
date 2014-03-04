@@ -24,8 +24,10 @@ class ImportController < ApplicationController
       # puts "Headers ==>> #{params[:file].headers} <<=="
       if file.headers['Content-Type: text/csv'] or file.headers['Content-Type: application/vnd.ms-excel']
         char_set = check_utf_encoding(file.tempfile)
-        @progress_bar = ProgressBar.new
-        process_CSV_file_wrapper(file.tempfile, file_lines, char_set, @progress_bar) #TODO named arguments 
+        @progress_bar = @progress_bar ? @progress_bar : ProgressBar.new
+        puts "+++++++++++#{@progress_bar.name}+++++++++++"
+        result = process_CSV_file_wrapper(file.tempfile, file_lines, char_set, @progress_bar) #TODO named arguments 
+        flash[:notice] = result
         redirect_to collections_path
       else 
         flash[:error] = "No es un CSV"
@@ -41,16 +43,17 @@ class ImportController < ApplicationController
     # wrapper so as to be able to change methods easily.
     result = ImportLogic.process_CSV_file(*args)
     puts "\033[32m#{result}\033[0m\n"
+    result
   end
   
   def progress()
     #Possibly needs to be a stream
-    thr = Thread.new {
+    # thr = Thread.new {
       @progress_bar = @progress_bar ? @progress_bar : ProgressBar.new
       puts "\033[31m#{@progress_bar.read}\033[0m\n" 
       render text: @progress_bar.read, layout: false
-    }
-    thr.join
+    # }
+    # thr.join
   end
     
 

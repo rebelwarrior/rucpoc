@@ -11,7 +11,7 @@ module ImportLogic
           sanitized_row = sanitize_row(record_row)
           process_record_row(sanitized_row, {})
           # progress_bar.inc
-          thr = Thread.new { progress_bar.inc }
+          thr = Thread.new  { progress_bar.inc }
           thr.join
         end
       end

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 feature 'Importing CSV' do
+  subject(:csv_table) { FactoryGirl.build :csv_table }
+  
   scenario " " do
     # It's using test db so no biggie
     
@@ -16,5 +18,13 @@ feature 'Importing CSV' do
     
     
   end
+  
+  #Unsuccesfully Importing CSV
+  
+end
+
+
+describe "sanitize row" do
+  it 'cleans up the row'
   
 end
