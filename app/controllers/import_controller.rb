@@ -1,5 +1,5 @@
 class ImportController < ApplicationController
-  # before_action :signed_in_user #TODO allow progress action to be called
+  before_action :signed_in_user, except: [:progress] #TODO allow progress action to be called
   require 'cmess/guess_encoding'
   require 'progress_bar'
   require 'import_logic_progress_bar'
@@ -24,8 +24,8 @@ class ImportController < ApplicationController
       # puts "Headers ==>> #{params[:file].headers} <<=="
       if file.headers['Content-Type: text/csv'] or file.headers['Content-Type: application/vnd.ms-excel']
         char_set = check_utf_encoding(file.tempfile)
-        @progress_bar = @progress_bar ? @progress_bar : ProgressBar.new
-        puts "+++++++++++#{@progress_bar.name}+++++++++++"
+        # @progress_bar = @progress_bar ? @progress_bar : ProgressBar.new
+        # puts "+++++++++++#{@progress_bar.name}+++++++++++"
         result = process_CSV_file_wrapper(file.tempfile, file_lines, char_set, @progress_bar) #TODO named arguments 
         flash[:notice] = result
         redirect_to collections_path
@@ -40,20 +40,42 @@ class ImportController < ApplicationController
   end
   
   def process_CSV_file_wrapper(*args)
+    require 'fiber'
     # wrapper so as to be able to change methods easily.
-    result = ImportLogic.process_CSV_file(*args)
-    puts "\033[32m#{result}\033[0m\n"
-    result
+    fiber_bit = ImportLogic.process_CSV_file(*args)
+    # progress # or some TCP socket
+    while fiber_bit.alive? #for each line try to resume execution?
+    # 25.times do
+      feed(fiber_bit.resume)
+    end
+    # puts "\033[32m#{result}\033[0m\n"
+    # result
   end
   
   def progress()
+    if true
+      num = @progress_bar
+      render text: num, layout: false
+      puts "\033[31m#{num}\033[0m\n" 
+    else
+      render text: 0, layout: false
+    end
     #Possibly needs to be a stream
     # thr = Thread.new {
-      @progress_bar = @progress_bar ? @progress_bar : ProgressBar.new
-      puts "\033[31m#{@progress_bar.read}\033[0m\n" 
-      render text: @progress_bar.read, layout: false
+      # @progress_bar = @progress_bar ? @progress_bar : ProgressBar.new
+      # puts "\033[31m#{@progress_bar.read}\033[0m\n" 
+      # render text: @progress_bar.read, layout: false
     # }
     # thr.join
+  end
+  
+  def feed(num)
+    if num
+      @progress_bar = num
+      puts "\033[31m#{num}\033[0m\n" 
+    else 
+      @progress_bar = 0
+    end
   end
     
 

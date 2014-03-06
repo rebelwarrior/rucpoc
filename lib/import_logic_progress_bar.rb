@@ -4,21 +4,31 @@ require 'progress_bar'
 module ImportLogic 
 
   def self.process_CSV_file(file, total_lines = 0, charset="bom|utf-8", progress_bar=ProgressBar.new) #TODO named arguments
+    Fiber.new {
     start_time = Time.now
+    counter = []
     ActiveRecord::Base.transaction do
       SmarterCSV.process(file, {:chunk_size => 10, verbose: true, file_encoding: "#{charset}" } ) do |file_chunk|
         file_chunk.each do |record_row|
           sanitized_row = sanitize_row(record_row)
           process_record_row(sanitized_row, {})
           # progress_bar.inc
-          thr = Thread.new  { progress_bar.inc }
-          thr.join
+          #Fiber.yield # So the idea is to Pause execution to allow progress bar to load
+          # thr = Thread.new  { progress_bar.inc }
+          # thr.join
+          counter << 1
+          #stop thread here
+          #resume fiber w/ size
+          #restart thread?
+          Fiber.yield counter.size
         end
       end
-      total_count = progress_bar.read
+      total_count = counter.size #progress_bar.read
       end_time = Time.now
-      [total_count, ((end_time - start_time) / 60 ).round(2)]
+      result = { total: total_count, time: ((end_time - start_time) / 60 ).round(2) }
+      puts "\033[32m#{result}\033[0m\n"
     end
+    }
   end
   
   def self.sanitize_row(record)
