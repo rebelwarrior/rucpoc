@@ -25,12 +25,16 @@ module RucPoc1
     config.time_zone = 'America/Puerto_Rico'
     
     # Rails 4.1 compatibility
-    I18n.available_locales = [:es, :en]
+    I18n.available_locales = [:es, :en] #Makes it work on the dev machine
+    config.i18n.available_locales = [:es, :en]
     I18n.enforce_available_locales = true
+    config.i18n.enforce_available_locales = true
     
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    # config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
+    # config.i18n.available_locales = [:es, :en]
     config.i18n.default_locale = :es
     
     # For Bootstrap Sass

@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   end
   
   def create
+    begin
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
@@ -12,6 +13,10 @@ class SessionsController < ApplicationController
       redirect_back_or user
     else
       flash.now[:error] = "Email y/o password inválido"
+      render 'new'
+    end
+    rescue BCrypt::Errors::InvalidHash => e
+      flash.now[:error] = "Email y/o password inválido: #{e}"
       render 'new'
     end
   end

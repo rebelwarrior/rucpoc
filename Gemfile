@@ -10,7 +10,7 @@ if $0['warble']
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.4'
 
 platforms :jruby do
   group :development do
@@ -119,7 +119,7 @@ group :deploy do
   platforms :jruby do
     unless heroku
       # For Warbler changes to config/application.rb and config/environtments/production.rb
-      gem 'warbler', '1.4.0', :require => false
+      gem 'warbler', '1.4.2', :require => false
       # gem 'warbler', '~> 1.4.0.beta1',:git => "https://github.com/jruby/warbler.git", :require => false
       # gem 'net-ssh', :require => "net/ssh"
       # gem 'net-scp', :require => "net/scp" 
