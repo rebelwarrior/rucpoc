@@ -10,7 +10,7 @@ if $0['warble']
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0.rc2'  #'4.0.4'
 
 platforms :jruby do
   group :development do

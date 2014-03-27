@@ -46,3 +46,4 @@ Notas:
 
 Ubuntu: `sudo service tomcat7 {stop|start|restart}`
 Ubuntu: ROOT is in `/var/lib/tomcat7/ROOT`
+Ubuntu: Logs are in `/var/log/tomcat7/`
