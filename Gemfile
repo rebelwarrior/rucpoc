@@ -71,6 +71,9 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'will_paginate', '~> 3.0.4'
 gem 'bootstrap-will_paginate'
 
+#Time Zone info data (for Rails 4.1)
+gem 'tzinfo-data'
+
 # Markdown
 gem 'kramdown' 
 

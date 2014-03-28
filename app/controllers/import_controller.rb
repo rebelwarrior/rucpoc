@@ -40,14 +40,14 @@ class ImportController < ApplicationController
   end
   
   def process_CSV_file_wrapper(*args)
-    require 'fiber'
+    # require 'fiber'
     # wrapper so as to be able to change methods easily.
-    fiber_bit = ImportLogic.process_CSV_file(*args)
+    # fiber_bit = 
+    ImportLogic.process_CSV_file(*args)
     # progress # or some TCP socket
-    while fiber_bit.alive? #for each line try to resume execution?
-    # 25.times do
-      feed(fiber_bit.resume)
-    end
+    # while fiber_bit.alive? #for each line try to resume execution?
+    #   feed(fiber_bit.resume)
+    # end
     # puts "\033[32m#{result}\033[0m\n"
     # result
   end
