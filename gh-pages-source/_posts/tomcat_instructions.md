@@ -13,10 +13,11 @@
   - El path para la instalacion de tomcat no puede tener espacios ni caracteres especiales.
 5. At the WEB-INF dir do `jruby -S rake db:migrate RAILS_ENV=production`
   - Corra el commando `jruby -S rake db:migrate RAILS_ENV=production` para crear la base de datos. El commando debe correr del archivo localizado en `<tomcat location>/webapps/<app name>/WEB-INF/`
-6. Set Tomcat server Heap memory up on the Java tab in windows (Rails 4 requirement) or in `/etc/default/tomcat7` in Ubuntu Linux.![Tomcat Windows Java Config](tomcat_config_windows.png "Tomcat Windows Java Config")
+6. Set Tomcat server Heap memory up on the Java tab in windows (Rails 4 requirement) or in `/etc/default/tomcat7` in Ubuntu Linux.![Tomcat Windows Java Config](tomcat_config_windows.png "Tomcat Windows Java Config") Windows requires only the first two options set while Ubuntu requires all three. 
    - `-XX:MaxPermSize=256M`
    - `-XX:PermSize=256M`
-     - Cambiar el setting de 'Heap Memory' en el tab de Java en la aplicación para el monitoreo de Tomcat (Windows) o en la configuración de Java.
+   - `-Xmx1024m` 
+     - Cambiar el setting de 'Heap Memory' en el tab de Java en la aplicación para el monitoreo de Tomcat (Windows) o en la configuración de Java. La ultima opción es particularmente importante para Rails 4.1 y Ubuntu. En Windows solo las primeras dos son requisito
 7. Set up the admin user for Tomcat. In tomcat/conf/tomcat-users.xml set up the following lines: ![Tomcat User Settings](tomcatuserssettings.png "Tomcat User Settings")
 
 8. Increase tomcat7 manager's war deploy size if you want to deploy form the admin gui.
