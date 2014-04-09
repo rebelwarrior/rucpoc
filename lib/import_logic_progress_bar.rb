@@ -29,6 +29,10 @@ module ImportLogic
       result = { total: total_count, time: ((end_time - start_time) / 60 ).round(2) }
       puts "\033[32m#{result}\033[0m\n"
     end
+    #rescue #TODO what's the error for import failures??
+    # rescue ActiveRecord::RecordInvalid => error_msg
+    #   flash.now error_msg
+    #   # redirect_to_import_path
     ensure
     end
     # }
@@ -82,8 +86,9 @@ module ImportLogic
      puts saved.inspect
      begin
        saved.save!
-     rescue ActiveRecord::RecordNotUnique
+     rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid 
        flash.now 
+       #redirect
      end
      raise unless saved.persisted?
      #if succeeds..

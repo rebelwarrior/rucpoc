@@ -11,3 +11,8 @@ end
 describe ObservableProgressBar do 
   
 end
+
+describe "Bad Data" do
+it 'fails on bad data'  
+  
+end
