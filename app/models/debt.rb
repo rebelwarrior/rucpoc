@@ -1,0 +1,2 @@
+class Debt < Collection
+end

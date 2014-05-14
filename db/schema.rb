@@ -11,11 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-#TODO collections should be called debts.
+ActiveRecord::Schema.define(version: 20140514205029) do
 
-ActiveRecord::Schema.define(version: 20131101202601) do
+  create_table "debtors", force: true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "tel"
+    t.string   "address"
+    t.string   "location"
+    t.string   "contact_person"
+    t.string   "employer_id_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
-  create_table "collections", force: true do |t|
+  add_index "debtors", ["employer_id_number"], name: "index_debtors_on_employer_id_number"
+  add_index "debtors", ["name"], name: "index_debtors_on_name", unique: true
+
+  create_table "debts", force: true do |t|
     t.string   "internal_invoice_number"
     t.decimal  "amount_owed",                     precision: 12, scale: 2
     t.boolean  "paid",                                                     default: false
@@ -35,22 +48,7 @@ ActiveRecord::Schema.define(version: 20131101202601) do
     t.integer  "amount_paid",                                              default: 0
   end
 
-  add_index "collections", ["internal_invoice_number"], name: "index_collections_on_internal_invoice_number"
-
-  create_table "debtors", force: true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "tel"
-    t.string   "address"
-    t.string   "location"
-    t.string   "contact_person"
-    t.string   "employer_id_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "debtors", ["employer_id_number"], name: "index_debtors_on_employer_id_number"
-  add_index "debtors", ["name"], name: "index_debtors_on_name", unique: true
+  add_index "debts", ["internal_invoice_number"], name: "index_debts_on_internal_invoice_number"
 
   create_table "departments", force: true do |t|
     t.string   "name"
@@ -60,14 +58,14 @@ ActiveRecord::Schema.define(version: 20131101202601) do
 
   create_table "logs", force: true do |t|
     t.string   "content"
-    t.integer  "collection_id"
+    t.integer  "debt_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "deleted?",      default: false
+    t.boolean  "deleted?",   default: false
   end
 
-  add_index "logs", ["collection_id"], name: "index_logs_on_collection_id"
+  add_index "logs", ["debt_id"], name: "index_logs_on_debt_id"
   add_index "logs", ["user_id", "created_at"], name: "index_logs_on_user_id_and_created_at"
 
   create_table "roles", force: true do |t|
