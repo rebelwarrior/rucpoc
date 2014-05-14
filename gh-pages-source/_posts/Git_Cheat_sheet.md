@@ -1,4 +1,5 @@
-#Git Config
+# Git Config
+
 
 `.gitconfig`
 
@@ -23,6 +24,6 @@
 	editor = mate -w
 ```  
 
-#Removing Data from Git Commits
+# Removing Data from Git Commits
 
 To remove data from git use BFG to change it in the git tree to REMOVED.

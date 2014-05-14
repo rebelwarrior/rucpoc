@@ -11,6 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+#TODO collections should be called debts.
+
 ActiveRecord::Schema.define(version: 20131101202601) do
 
   create_table "collections", force: true do |t|
