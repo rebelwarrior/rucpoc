@@ -7,8 +7,9 @@ class Debtor < ActiveRecord::Base
    before_save { self.employer_id_number = 
      employer_id_number.match(VALID_EIN_REGEX).captures[-2..-1].join('-') unless employer_id_number.blank?}
    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-   VALID_TEL_REGEX =/\A(\z|([0-9]{3}-?[0-9]{3}-?[0-9]{4}))\z/
-   VALID_EIN_REGEX =/\A(\z|([0-9]{2})-?([0-9]{7}))\z/ 
+   VALID_TEL_REGEX = /\A(\z|([0-9]{3}-?[0-9]{3}-?[0-9]{4}))\z/
+   VALID_EIN_REGEX = /\A(\z|([0-9]{2})-?([0-9]{7}))\z/ 
+   VALID_EIN_OR_SS_REGEX = /\A(\z|([[:digit:]]{3}|[[:digit:]]{2})-?[[:digit:]]{2}-?[[:digit:]]{4})\z/
    validates(:email, format: { with: VALID_EMAIL_REGEX})
    validates :name, presence: true
    validates :employer_id_number, uniqueness: true, 
@@ -64,6 +65,7 @@ __END__
 t.string   "name"
 t.string   "email"
 t.string   "tel"
+#TODO add t.string "ext"
 t.string   "address"
 t.string   "location"
 t.string   "contact_person"

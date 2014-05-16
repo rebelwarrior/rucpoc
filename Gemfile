@@ -11,7 +11,7 @@ gem 'jruby-jars', '1.7.12' #Now explicitly calling jruby-jars version
 # puts "run `bundle update jruby-jars` when new version of jruby" if $0['warble'] 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0' #'4.0.4'
+gem 'rails', '4.1.1' #'4.1.0' #'4.0.4'
 
 platforms :jruby do
   group :development do
@@ -26,15 +26,15 @@ platforms :jruby do
   end 
   gem 'activerecord-jdbc-adapter', '~> 1.3.0' 
   gem 'therubyrhino'
-  gem 'atomic' #For atomic threaded operations
 end
 
 # Puma as server
 gem 'puma', '~> 2.8.0'
 
 # For CSV importing
-gem 'smarter_csv'
-gem 'cmess'
+gem 'smarter_csv', '~> 1.0.17'
+gem 'cmess', '~> 0.4.0'
+gem 'atomic', :platforms => :jruby #For atomic threaded operations
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
@@ -112,8 +112,8 @@ end
 
 platforms :ruby do
   group :production do
-    gem 'therubyracer'    #javascript
-    gem 'pg'              #heroku db
+    gem 'therubyracer'    # javascript
+    gem 'pg'              # heroku db
     gem 'unicorn'         # Use unicorn as the app server
     gem 'rails_12factor'  # 12 Factor App for Log Stream 
   end
